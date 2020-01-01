@@ -76,7 +76,7 @@ class App extends Component {
                 setNavbarHeight: this.setNavbarHeight,
                 setAppState: this.setAppState
             }}>
-                <Router basename={'/dist'}>
+                <Router basename={ process.env.ROUTER_BASENAME ? `${process.env.ROUTER_BASENAME}` : '/dist'}>
                     <div className={styles["wrap"]}>
                         <Suspense fallback={<Loader cover={true}/>}>
                             <Navigation open={this.state.navbarOpen} onOpenStateChange={state => { this.setState({ navbarOpen: state }) }}/>

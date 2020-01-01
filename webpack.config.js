@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 const path = require('path')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 // const HtmlWebpackExcludeAssetsPlugin = require('html-webpack-exclude-assets-plugin')
@@ -120,6 +121,9 @@ module.exports = {
       // all options are optional
       filename: '[name].css',
       ignoreOrder: false, // Enable to remove warnings about conflicting order
-    })
+    }),
+    new webpack.DefinePlugin({
+      __ROUTER_BASENAME__: JSON.stringify(process.env.NODE_ENV === 'prod' ? '/' : "/dist"),
+    }),
   ]
 }

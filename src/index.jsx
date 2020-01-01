@@ -1,3 +1,4 @@
+import { basename } from '../constants.js'
 import React, { Suspense, lazy, Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
@@ -10,14 +11,11 @@ import styles from './styles.css';
 import { debounce } from '@youri-kane/js_utils/EventUtils'
 import AppContext from './contexts/AppContext'
 import Loader from './Loader/Loader'
-
-
 const Navigation = lazy(() => import('./Navigation/Navigation'))
 const HomePage = lazy(() => import('./pages/HomePage'))
 const ProjectPage = lazy(() => import('./pages/Projects'))
 const AboutMe = lazy(() => import('./pages/AboutMe'))
 const Contact = lazy(() => import('./pages/Contact'))
-
 class App extends Component {
 
     componentDidMount(){
@@ -76,7 +74,7 @@ class App extends Component {
                 setNavbarHeight: this.setNavbarHeight,
                 setAppState: this.setAppState
             }}>
-                <Router basename={ process.env.ROUTER_BASENAME ? `${process.env.ROUTER_BASENAME}` : '/dist'}>
+                <Router basename={basename}>
                     <div className={styles["wrap"]}>
                         <Suspense fallback={<Loader cover={true}/>}>
                             <Navigation open={this.state.navbarOpen} onOpenStateChange={state => { this.setState({ navbarOpen: state }) }}/>

@@ -48,7 +48,7 @@
   "scripts": {
     "build:projects": "node ./src/projects/buildProjects",
     "dev": "node ./node_modules/webpack/bin/webpack.js ./src/index.jsx --config ./webpack.config.js --watch",
-    "prod": "node ./node_modules/webpack/bin/webpack.js ./src/index.jsx --mode production --config ./webpack.config.js && npm run build:projects",
+    "prod": "npm run build:projects && node ./node_modules/webpack/bin/webpack.js ./src/index.jsx --mode production --config ./webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

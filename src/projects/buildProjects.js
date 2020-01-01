@@ -56,7 +56,7 @@ Promise.all(projects)
                 if(project.sources.indexOf('main.js')) {
                     arr[project.directory] = project.fullPath + '/main.js'
                 } else {
-                    console.warn('project: ', project.name, ' as no main file')
+                    console.warn('project: ', project.name, ' has no main file')
                 }
                 return arr
             }, {}),
@@ -77,6 +77,7 @@ Promise.all(projects)
             if(err) {
                 throw err
             }
+            console.log(stats)
             console.log('build projects ok')
         })
     })

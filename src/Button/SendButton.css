@@ -1,0 +1,281 @@
+.button {
+    --offsetX: 0px;
+    --offsetY: 0px;
+    background: theme('colors.blue.500');
+    background-image: linear-gradient(180deg, theme('colors.blue.300'), theme('colors.blue.500') 33%, theme('colors.blue.500') 66%, theme('colors.blue.300'));
+    border-color: transparent;
+    border-style: none;
+    font-size: theme('fontSize.md');
+    height: 2.5rem;
+    color: theme('colors.gray.800');
+    background-size: 200%;
+    transition: background-size 225ms, background-position 225ms;
+    position: relative;
+    outline: 0;
+}
+.button[disabled], .button:disabled {
+    opacity: .75;
+}
+.button:hover,
+.button:focus {
+    /* background-position-y: -10%; */
+    /* background-size: 100% 120%; */
+}
+.button:active {
+    box-shadow: inset 0 0 2px rgba(18, 18, 18, .25);
+}
+.button [data-icon="envelope"]:first-child {
+    @apply mr-3
+}
+
+.animated-icon {
+    /* opacity: 0; */
+    position: absolute;
+    height: theme('fontSize.md');
+    top: calc(50% - theme('fontSize.md') / 2 + var(--offsetY));
+    width: theme('fontSize.md');
+    left: calc(50% - theme('fontSize.md') / 2 + var(--offsetX));
+    outline: 0;
+    opacity: 0;
+    color: theme('colors.gray.500');
+}
+
+.animated-icon:nth-of-type(1) {
+    transform: rotateZ(0deg);
+}
+
+.animated-icon:nth-of-type(1).animate {
+    animation: slide-1 2000ms;
+}
+
+@keyframes slide-1 {
+    from {
+        opacity: 1;
+        transform: rotateZ(0deg) translateY(0.8rem);
+    }
+
+    to {
+        transform: rotateZ(0deg) translateY(20rem);
+        opacity: 0;
+    }
+}
+
+.animated-icon:nth-of-type(2) {
+    transform: rotateZ(30deg);
+}
+
+.animated-icon:nth-of-type(2).animate {
+    animation: slide-2 2000ms;
+}
+
+@keyframes slide-2 {
+    from {
+        opacity: 1;
+        transform: rotateZ(30deg) translateY(0.8rem);
+    }
+
+    to {
+        transform: rotateZ(30deg) translateY(20rem);
+        opacity: 0;
+    }
+}
+
+.animated-icon:nth-of-type(3) {
+    transform: rotateZ(60deg);
+}
+
+.animated-icon:nth-of-type(3).animate {
+    animation: slide-3 2000ms;
+}
+
+@keyframes slide-3 {
+    from {
+        opacity: 1;
+        transform: rotateZ(60deg) translateY(0.8rem);
+    }
+
+    to {
+        transform: rotateZ(60deg) translateY(20rem);
+        opacity: 0;
+    }
+}
+
+.animated-icon:nth-of-type(4) {
+    transform: rotateZ(90deg);
+}
+
+.animated-icon:nth-of-type(4).animate {
+    animation: slide-4 2000ms;
+}
+
+@keyframes slide-4 {
+    from {
+        opacity: 1;
+        transform: rotateZ(90deg) translateY(0.8rem);
+    }
+
+    to {
+        transform: rotateZ(90deg) translateY(20rem);
+        opacity: 0;
+    }
+}
+
+.animated-icon:nth-of-type(5) {
+    transform: rotateZ(120deg);
+}
+
+.animated-icon:nth-of-type(5).animate {
+    animation: slide-5 2000ms;
+}
+
+@keyframes slide-5 {
+    from {
+        opacity: 1;
+        transform: rotateZ(120deg) translateY(0.8rem);
+    }
+
+    to {
+        transform: rotateZ(120deg) translateY(20rem);
+        opacity: 0;
+    }
+}
+
+.animated-icon:nth-of-type(6) {
+    transform: rotateZ(150deg);
+}
+
+.animated-icon:nth-of-type(6).animate {
+    animation: slide-6 2000ms;
+}
+
+@keyframes slide-6 {
+    from {
+        opacity: 1;
+        transform: rotateZ(150deg) translateY(0.8rem);
+    }
+
+    to {
+        transform: rotateZ(150deg) translateY(20rem);
+        opacity: 0;
+    }
+}
+
+.animated-icon:nth-of-type(7) {
+    transform: rotateZ(180deg);
+}
+
+.animated-icon:nth-of-type(7).animate {
+    animation: slide-7 2000ms;
+}
+
+@keyframes slide-7 {
+    from {
+        opacity: 1;
+        transform: rotateZ(180deg) translateY(0.8rem);
+    }
+
+    to {
+        transform: rotateZ(180deg) translateY(20rem);
+        opacity: 0;
+    }
+}
+
+.animated-icon:nth-of-type(8) {
+    transform: rotateZ(210deg);
+}
+
+.animated-icon:nth-of-type(8).animate {
+    animation: slide-8 2000ms;
+}
+
+@keyframes slide-8 {
+    from {
+        opacity: 1;
+        transform: rotateZ(210deg) translateY(0.8rem);
+    }
+
+    to {
+        transform: rotateZ(210deg) translateY(20rem);
+        opacity: 0;
+    }
+}
+
+.animated-icon:nth-of-type(9) {
+    transform: rotateZ(240deg);
+}
+
+.animated-icon:nth-of-type(9).animate {
+    animation: slide-9 2000ms;
+}
+
+@keyframes slide-9 {
+    from {
+        opacity: 1;
+        transform: rotateZ(240deg) translateY(0.8rem);
+    }
+
+    to {
+        transform: rotateZ(240deg) translateY(20rem);
+        opacity: 0;
+    }
+}
+
+.animated-icon:nth-of-type(10) {
+    transform: rotateZ(270deg);
+}
+
+.animated-icon:nth-of-type(10).animate {
+    animation: slide-10 2000ms;
+}
+
+@keyframes slide-10 {
+    from {
+        opacity: 1;
+        transform: rotateZ(270deg) translateY(0.8rem);
+    }
+
+    to {
+        transform: rotateZ(270deg) translateY(20rem);
+        opacity: 0;
+    }
+}
+
+.animated-icon:nth-of-type(11) {
+    transform: rotateZ(300deg);
+}
+
+.animated-icon:nth-of-type(11).animate {
+    animation: slide-11 2000ms;
+}
+
+@keyframes slide-11 {
+    from {
+        opacity: 1;
+        transform: rotateZ(300deg) translateY(0.8rem);
+    }
+
+    to {
+        transform: rotateZ(300deg) translateY(20rem);
+        opacity: 0;
+    }
+}
+
+.animated-icon:nth-of-type(12) {
+    transform: rotateZ(330deg);
+}
+
+.animated-icon:nth-of-type(12).animate {
+    animation: slide-12 2000ms;
+}
+
+@keyframes slide-12 {
+    from {
+        opacity: 1;
+        transform: rotateZ(330deg) translateY(0.8rem);
+    }
+
+    to {
+        transform: rotateZ(330deg) translateY(20rem);
+        opacity: 0;
+    }
+}

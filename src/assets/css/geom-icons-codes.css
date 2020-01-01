@@ -1,0 +1,9 @@
+
+.icon-octagone:before { content: '\e800'; } /* '' */
+.icon-square:before { content: '\e801'; } /* '' */
+.icon-star:before { content: '\e802'; } /* '' */
+.icon-triangle:before { content: '\e803'; } /* '' */
+.icon-arrows-down:before { content: '\e804'; } /* '' */
+.icon-arrows-up:before { content: '\e805'; } /* '' */
+.icon-circle:before { content: '\e807'; } /* '' */
+.icon-hexagone:before { content: '\e808'; } /* '' */

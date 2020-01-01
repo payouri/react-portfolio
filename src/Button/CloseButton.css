@@ -1,0 +1,16 @@
+.button {
+    @apply bg-transparent border-0 p-0;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    transform: rotate(0);
+    transition: transform 0s;
+}
+.button:hover {
+    transform: rotateZ(-90deg);
+    transition: transform 175ms linear 5ms;
+}
+.button:active {
+    
+}

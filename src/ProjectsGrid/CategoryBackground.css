@@ -1,0 +1,16 @@
+.experiments {
+    @apply bg-orange-500;
+    background-image: linear-gradient(-35deg, theme('colors.orange.500') 12%, theme('colors.orange.300') 101%)
+}
+.library {
+    @apply bg-teal-500;
+    background-image: linear-gradient(-35deg, theme('colors.teal.500') 12%, theme('colors.teal.300') 101%)
+}
+.module {
+    @apply bg-blue-500;
+    background-image: linear-gradient(-35deg, theme('colors.blue.500') 12%, theme('colors.blue.300') 101%)
+}
+.default {
+    @apply bg-gray-500;
+    background-image: linear-gradient(-35deg, theme('colors.gray.500') 12%, theme('colors.gray.300') 101%)
+}

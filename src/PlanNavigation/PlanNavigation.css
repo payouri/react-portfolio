@@ -1,0 +1,6 @@
+.wrapper {
+    @apply bg-gray-800;
+}
+.wrapper > div {
+    will-change: transform;
+}

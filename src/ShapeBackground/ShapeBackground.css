@@ -1,0 +1,105 @@
+.shapes-wrapper {
+    background-color: rgba(45, 55, 72, 0.75);
+    /* overflow: hidden; */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+}
+
+.shapes-pane {
+    height: 100%;
+    width: 100%;
+    /* animation: oscillate 20s cubic-bezier(0.895, 0.03, 0.685, 0.22) alternate infinite; */
+}
+
+@-webkit-keyframes moveUp {
+    0% {
+        transform: translateY(calc(-50% + 6.3%)) translateX(-50%);
+    }
+
+    25% {
+        transform: translateY(calc(-50% + 16%)) translateX(-50%);
+    }
+}
+
+@-webkit-keyframes moveUpDown {
+    0% {
+        transform: translateY(calc(-50% + 10.3%)) translateX(-50%);
+    }
+
+    50% {
+        transform: translateY(calc(-50% + 16%)) translateX(-50%);
+    }
+}
+
+.shape {
+    text-shadow: 0px 2px .1rem rgba(245, 245, 245, .175);
+    position: absolute;
+    margin: 0 -.2rem;
+    font-size: 1rem;
+    transform: translate(-50%, -50%);
+    animation: moveUp 4.5s ease-in-out 1 alternate-reverse, moveUpDown 3.5s ease-in-out alternate-reverse infinite;
+}
+
+.shape.shape-red {
+    @apply text-red-500
+}
+
+.shape:hover {}
+
+.shape.shape-teal {
+    @apply text-teal-500
+}
+
+.shape.shape-teal:hover {}
+
+.shape.shape-blue {
+    @apply text-blue-500
+}
+
+.shape.shape-blue:hover {}
+
+.shape.shape-green {
+    @apply text-green-500
+}
+
+.shape.shape-green:hover {}
+
+.shape.shape-orange {
+    @apply text-orange-500
+}
+
+.shape.shape-orange:hover {}
+
+.shape.shape-yellow {
+    @apply text-yellow-500
+}
+
+.shape.shape-yellow:hover {}
+
+.shape.shape-indigo {
+    @apply text-indigo-500
+}
+
+.shape.shape-indigo:hover {}
+
+.shape.shape-purple {
+    @apply text-purple-500
+}
+
+.shape.shape-purple:hover {}
+
+.shape.shape-white {
+    @apply text-white
+}
+
+.shape.shape-white:hover {}
+
+.shape.shape-gray {
+    @apply text-gray-500
+}
+
+.shape.shape-gray:hover {}

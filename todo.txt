@@ -1,0 +1,8 @@
+- full screen projects
+- projects folders
+- projects desc/body/etc
+- contact page layout
+- Me/myself page layout
+- Me/myself page text / picture
+- home enhance visual
+- navbar full screen mode

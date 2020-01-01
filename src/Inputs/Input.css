@@ -1,0 +1,33 @@
+.input-wrapper {
+    --height: 2rem;
+    --fz: theme('fontSize.md');
+    --px: theme('fontSize.sm');
+    --py: theme('fontSize.xxs');
+    height: var(--height);
+    position: relative;
+    margin: .75rem 0;
+}
+.input {
+    height: var(--height);
+    font-size: var(--fz);
+    padding: var(--py) var(--px);
+    width: 100%;
+    outline: 0;
+    border: 0;
+    border-bottom: 2px solid theme('colors.gray.600');
+}
+.label {
+    position: absolute;
+    top: 0; left: calc(var(--px) + 1px); bottom: calc(var(--py) / 2); right: var(--px);
+    line-height: calc(var(--height) + 1px);
+    height: var(--height);
+    font-size: var(--fz);
+    transition: transform 225ms;
+}
+.input:focus {
+    background-color: theme('colors.gray.100');
+    border-bottom-color: theme('colors.blue.600');
+}
+.input:not(:placeholder-shown) + .label {
+    transform: translate(calc(-1 * var(--height) * 1.1), calc(-1 * var(--height) / 1.6)) scale(.85);
+}

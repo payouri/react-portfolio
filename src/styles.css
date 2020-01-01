@@ -1,0 +1,44 @@
+@tailwind "tailwind/base";
+@tailwind "tailwind/components";
+
+:root {
+    /* font-size: calc(100vw / 40); */
+    font-size: 20px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    @apply m-0 mb-2;
+    line-height: 1.5;
+}
+
+body {
+    /* @apply bg-red-500; */
+    @apply text-gray-900;
+    font-family: sans-serif;
+}
+
+.wrap {
+    /* @apply bg-red-500; */
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    overflow-x: hidden;
+    position: relative;
+}
+
+@tailwind "tailwind/utilities";

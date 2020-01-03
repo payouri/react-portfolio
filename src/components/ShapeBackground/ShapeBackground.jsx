@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { randomPick } from '@youri-kane/js_utils/ArrayUtils'
 import styles from './ShapeBackground.css'
-import icons from '../assets/css/geom-icons.css'
+import icons from '@assets/css/geom-icons.css'
 
 const Shape = function({ left, top, icon, style, color, size, delay, animated }) {
 

@@ -1,7 +1,7 @@
 import { basename } from '../constants.js'
 import React, { Suspense, lazy, Component } from 'react';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import {
     BrowserRouter as Router,
     Switch,
@@ -9,13 +9,13 @@ import {
 } from 'react-router-dom';
 import styles from './styles.css';
 import { debounce } from '@youri-kane/js_utils/EventUtils'
-import AppContext from './contexts/AppContext'
-import Loader from './Loader/Loader'
-const Navigation = lazy(() => import('./Navigation/Navigation'))
-const HomePage = lazy(() => import('./pages/HomePage'))
-const ProjectPage = lazy(() => import('./pages/Projects'))
-const AboutMe = lazy(() => import('./pages/AboutMe'))
-const Contact = lazy(() => import('./pages/Contact'))
+import AppContext from '@contexts/AppContext'
+import Loader from '@cmp/Loader/Loader'
+const Navigation = lazy(() => import('@cmp/Navigation/Navigation'))
+const HomePage = lazy(() => import('@pages/HomePage'))
+const ProjectPage = lazy(() => import('@pages/Projects'))
+const AboutMe = lazy(() => import('@pages/AboutMe'))
+const Contact = lazy(() => import('@pages/Contact'))
 class App extends Component {
 
     componentDidMount(){

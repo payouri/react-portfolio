@@ -1,6 +1,6 @@
-import React, { lazy, Component } from 'react'
-import PropTypes from 'prop-types'
-import pausableTimeout from '../utils/pausableTimeout'
+import React, { /* lazy, */ Component } from 'react'
+// import PropTypes from 'prop-types'
+import pausableTimeout from '@utils/pausableTimeout'
 import { debounce } from '@youri-kane/js_utils/EventUtils'
 import styles from './FlippingText.css'
 
@@ -13,7 +13,7 @@ const words = [
 const wordsByLen = words.map(w => w.length);
 const offsetTime = 500;
 
-export default class FlippingText extends Component {
+class FlippingText extends Component {
 
     componentDidMount() {
         this.interval = pausableTimeout(() => {
@@ -123,3 +123,9 @@ export default class FlippingText extends Component {
         )
     }
 }
+
+FlippingText.propTypes = {
+
+}
+
+export default FlippingText

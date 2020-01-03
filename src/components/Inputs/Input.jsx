@@ -16,6 +16,7 @@ function Input({ inputRef, label, id, ...props }) {
 Input.propTypes = {
     id: PropTypes.string,
     inputRef: PropTypes.object,
+    label: PropTypes.string
 }
 
 export default Input

@@ -1,10 +1,10 @@
 import React, { lazy, Suspense } from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 
-const Loader = lazy(() => import('../Loader/Loader'))
-const FlippingText = lazy(() => import('../FlippingText/FlippingText'))
-const FieldOfView = lazy(() => import('../PlanNavigation/PlanNavigation'))
-const ShapeBackground = lazy(() => import('../ShapeBackground/ShapeBackground'))
+const Loader = lazy(() => import('@cmp/Loader/Loader'))
+const FlippingText = lazy(() => import('@cmp/FlippingText/FlippingText'))
+const FieldOfView = lazy(() => import('@cmp/PlanNavigation/PlanNavigation'))
+const ShapeBackground = lazy(() => import('@cmp/ShapeBackground/ShapeBackground'))
 
 const initialDepth = innerWidth * .65
 const firstPlanShapes = [

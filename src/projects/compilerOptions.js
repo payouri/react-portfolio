@@ -5,11 +5,36 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, '../../dist'),
         filename: '[name]/bundle.js',
-        publicPath: './'
+        publicPath: './',
+        chunkFilename: '[name]-[chunkhash].js'
     },
     resolve: {
         extensions: ['.js', '.json', '.jsx', '.css']
     },
+    optimization: {
+        splitChunks: {
+          chunks: 'async',
+          minSize: 30000,
+          // min/Size: 0,
+          maxSize: 0,
+          minChunks: 4,
+          maxAsyncRequests: 6,
+          maxInitialRequests: 4,
+          automaticNameDelimiter: '~',
+          automaticNameMaxLength: 30,
+          cacheGroups: {
+            vendors: {
+              test: /[\\/]node_modules[\\/]/,
+              priority: -10
+            },
+            default: {
+              minChunks: 2,
+              priority: -20,
+              reuseExistingChunk: true,
+            }
+          }
+        }
+      },
     module: {
         rules: [
             {

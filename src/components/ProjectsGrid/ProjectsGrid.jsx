@@ -4,15 +4,15 @@ import { clamp } from '@youri-kane/js_utils/MathUtils'
 import { capitalize } from '@youri-kane/js_utils/StringUtils'
 import styles from './ProjectGrid.css'
 import backgrounds from './CategoryBackground.css'
-import projects from '../projects/build_index.json'
-import Loader from '../Loader/Loader'
-import AppContext from '../contexts/AppContext'
+import projects from '../../projects/build_index.json'
+import Loader from '@cmp/Loader/Loader'
+import AppContext from '@contexts/AppContext'
 
-const Tooltip = React.lazy(() => import('../Tooltip/Tooltip'))
-const ProjectIframe = React.lazy(() => import('../ProjectIframe/ProjectIframe'))
-const Icon = React.lazy(() => import('../Icon/Icon'))
-const Img = React.lazy(() => import('../Image/Image'))
-const CloseButton = React.lazy(() => import('../Button/CloseButton'))
+const Tooltip = React.lazy(() => import('@cmp/Tooltip/Tooltip'))
+const ProjectIframe = React.lazy(() => import('@cmp/ProjectIframe/ProjectIframe'))
+const Icon = React.lazy(() => import('@cmp/Icon/Icon'))
+const Img = React.lazy(() => import('@cmp/Image/Image'))
+const CloseButton = React.lazy(() => import('@cmp/Button/CloseButton'))
 // const SearchInput = React.lazy(() => import('../SearchInput/SearchInput'))
 
 const gridStates = {

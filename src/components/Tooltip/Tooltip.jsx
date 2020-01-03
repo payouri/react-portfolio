@@ -1,7 +1,6 @@
-import React, { useLayoutEffect, useEffect, useState } from 'react';
+import React, { /* useLayoutEffect, */ useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import styles from './Tooltip.css'
-import { faBtc } from '@fortawesome/free-brands-svg-icons';
 
 const Tooltip = ({ label, position, rootElem, show, offsetX, offsetY, style, ...rest }) => {
 
@@ -63,6 +62,10 @@ Tooltip.propTypes = {
     label: PropTypes.string,
     position: PropTypes.oneOf([ 'top', 'bottom', 'left', 'right' ]),
     rootElem: PropTypes.node,
+    show: PropTypes.bool,
+    offsetX: PropTypes.number,
+    offsetY: PropTypes.number,
+    style: PropTypes.object,
 }
 
 Tooltip.defaultProps = {

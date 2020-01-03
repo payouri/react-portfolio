@@ -1,11 +1,11 @@
 import React, { lazy, Suspense, } from 'react'
-import PropTypes from 'prop-types'
-import photo from '../assets/imgs/71497177_10221257600255596_4122671362911240192_o.jpg'
+// import PropTypes from 'prop-types'
+import photo from '@assets/imgs/71497177_10221257600255596_4122671362911240192_o.jpg'
 
-const TwoColumns = lazy(() => import('../Layouts/TwoColumns'))
-const Image = lazy(() => import('../Image/Image'))
-const Loader = lazy(() => import('../Loader/Loader'))
-const TextTyper = lazy(() => import('../TextTyper/TextTyper'))
+const TwoColumns = lazy(() => import('@cmp/Layouts/TwoColumns'))
+const Image = lazy(() => import('@cmp/Image/Image'))
+const Loader = lazy(() => import('@cmp/Loader/Loader'))
+const TextTyper = lazy(() => import('@cmp/TextTyper/TextTyper'))
 
 const aboutMeText = `Hello I am Youri and I want to build great <emotive data-emotion="👌">experiences</emotive>.<br>
 As a developer I <emotive data-emotion="🤩" style="animation-delay: 400ms;"><strong>thrive</strong></emotive> to find new cutting edge technics, while trying to keep myself updated with all what`

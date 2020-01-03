@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styles from './CloseButton.css'
 
-const Icon = React.lazy(() => import('../Icon/Icon'))
+const Icon = React.lazy(() => import('@cmp/Icon/Icon'))
 
 const CloseButton = props => {
 

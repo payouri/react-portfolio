@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from 'react'
-import PropTypes from 'prop-types'
-const ProjectsGrid = lazy(() => import('../ProjectsGrid/ProjectsGrid'))
-const Loader = lazy(() => import('../Loader/Loader'))
+// import PropTypes from 'prop-types'
+const ProjectsGrid = lazy(() => import('@cmp/ProjectsGrid/ProjectsGrid'))
+const Loader = lazy(() => import('@cmp/Loader/Loader'))
 
 const Projects = () => {
     return(

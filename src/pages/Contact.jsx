@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import Input from '../Inputs/Input'
-import TextArea from '../Inputs/TextArea'
-import SendButton from '../Button/SendButton'
+import Input from '@cmp/Inputs/Input'
+import TextArea from '@cmp/Inputs/TextArea'
+import SendButton from '@cmp/Button/SendButton'
 import styles from './Contact.css'
 function Contact() {
 
@@ -14,7 +14,7 @@ function Contact() {
         hidden: 'fffaaa'
     })
 
-    const handleInput = e => {
+    const handleInput = () => {
         const { email, name, message } = formInputs
         setValid(email && name && message)
     }

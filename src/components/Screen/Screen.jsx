@@ -1,5 +1,5 @@
 import React from 'react';
-import WithAppContext from '../HOC/WithAppContext';
+import WithAppContext from '@hoc/WithAppContext';
 
 const AppScreen = props => {
 

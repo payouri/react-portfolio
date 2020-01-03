@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
 import styles from './Navigation.css'
-import AppContext from '../contexts/AppContext';
+import AppContext from '@contexts/AppContext';
 import { debounce } from '@youri-kane/js_utils/EventUtils';
-import MenuButton from '../Button/MenuButton'
+import MenuButton from '@cmp/Button/MenuButton'
 import { withRouter } from 'react-router-dom'
 class Navigation extends Component {
 

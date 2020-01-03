@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, lazy } from 'react'
 import PropTypes from 'prop-types'
-import Icon from '../Icon/Icon'
 import styles from './SendButton.css'
+const Icon = lazy(() => import('@cmp/Icon/Icon'))
+
 function SendButton({children, onClick, disabled, ...props}) {
     
     const buttonRef = useRef()

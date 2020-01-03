@@ -1,7 +1,7 @@
-import React, { Component, Suspense, lazy } from 'react'
+import React, { Component, /* Suspense, */ lazy } from 'react'
 import PropTypes from 'prop-types'
-const Loader = lazy(() => import('../Loader/Loader'))
-const CloseButton = lazy(() => import('../Button/CloseButton'))
+const Loader = lazy(() => import('@cmp/Loader/Loader'))
+const CloseButton = lazy(() => import('@cmp/Button/CloseButton'))
 // const iframe =lazy(() => {
 
 

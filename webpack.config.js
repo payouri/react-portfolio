@@ -15,10 +15,12 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
-      components: path.resolve(__dirname, './src/components'),
-      hoc: path.resolve(__dirname, './src/HOC'),
-      js: path.resolve(__dirname, './src/commons/js'),
-      styles: path.resolve(__dirname, './src/commons/styles')
+      '@assets': path.resolve(__dirname, './src/assets'),
+      '@cmp': path.resolve(__dirname, './src/components'),
+      '@hoc': path.resolve(__dirname, './src/HOC'),
+      '@utils': path.resolve(__dirname, './src/utils/'),
+      '@contexts': path.resolve(__dirname, './src/contexts'),
+      '@pages': path.resolve(__dirname, './src/pages')
     }
   },
   // devtool: 'source-map',

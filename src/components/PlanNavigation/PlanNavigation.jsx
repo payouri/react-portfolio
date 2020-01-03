@@ -1,7 +1,7 @@
 import React, { useState, } from 'react'
 import PropTypes from 'prop-types'
 import { clamp } from '@youri-kane/js_utils/MathUtils'
-import { throttle, debounce } from '@youri-kane/js_utils/EventUtils'
+import { debounce } from '@youri-kane/js_utils/EventUtils'
 import css from './PlanNavigation.css'
 
 const handleWheel = (mode, getNextPlan, globalDepth, setGlobalDepth, minDepth, maxDepth, e) => {

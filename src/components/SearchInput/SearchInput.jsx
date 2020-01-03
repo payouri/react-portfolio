@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
-import Icon from '../Icon/Icon'
+import Icon from '@cmp/Icon/Icon'
 
 const SearchInput = ({ wrapperStyle, ...rest }) => {
 

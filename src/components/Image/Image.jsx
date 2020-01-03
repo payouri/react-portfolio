@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Loader from '../Loader/Loader';
+import Loader from '@cmp/Loader/Loader';
 
 const onImageEnter = function(entries) {
     

@@ -1,25 +1,24 @@
 import { basename } from '../constants.js'
 import React, { Suspense, lazy, Component } from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom'
 // import PropTypes from 'prop-types';
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
 } from 'react-router-dom';
 import styles from './styles.css';
 import { debounce } from '@youri-kane/js_utils/EventUtils'
 import AppContext from '@contexts/AppContext'
 import Loader from '@cmp/Loader/Loader'
+import Container from './components/Container.jsx';
+import Routes from './Routes'
+// const Container = lazy(() => import('./components/Container.jsx'))
+// const Routes = lazy(() => import('./Routes.jsx'))
 const Navigation = lazy(() => import('@cmp/Navigation/Navigation'))
-const HomePage = lazy(() => import('@pages/HomePage'))
-const ProjectPage = lazy(() => import('@pages/Projects'))
-const AboutMe = lazy(() => import('@pages/AboutMe'))
-const Contact = lazy(() => import('@pages/Contact'))
 class App extends Component {
 
-    componentDidMount(){
-    
+    componentDidMount() {
+
         this.setState({
             windowWidth: innerWidth,
         })
@@ -28,11 +27,11 @@ class App extends Component {
 
     }
     componentWillUnmount() {
-      
+
         window.removeEventListener('resize', this.onWindowResize)
 
     }
-    
+
     onWindowResize() {
 
         this.setState({
@@ -46,15 +45,20 @@ class App extends Component {
         document.write('error')
 
     }
-    
+
+    handleRouteChange(e) {
+        console.log(e);
+    }
+
     constructor(props) {
         super(props);
-        
+
         this.state = {
             windowWidth: undefined,
             navbarOpen: false,
             navbarHeight: undefined,
         }
+        this.handleRouteChange = debounce(this.handleRouteChange.bind(this), 75)
         this.onWindowResize = debounce(this.onWindowResize.bind(this), 75)
         this.setNavbarHeight = n => {
             this.setState({
@@ -68,6 +72,7 @@ class App extends Component {
         }
     }
     render() {
+
         return (
             <AppContext.Provider value={{
                 ...this.state,
@@ -76,19 +81,14 @@ class App extends Component {
             }}>
                 <Router basename={basename}>
                     <div className={styles["wrap"]}>
-                        <Suspense fallback={<Loader cover={true}/>}>
-                            <Navigation open={this.state.navbarOpen} onOpenStateChange={state => { this.setState({ navbarOpen: state }) }}/>
+                        <Suspense fallback={<Loader cover={true} />}>
+                            <Navigation open={this.state.navbarOpen} onOpenStateChange={state => { this.setState({ navbarOpen: state }) }} />
                         </Suspense>
-                        <div style={{ flex: '0 0 100%', position: 'relative', overflow: 'hidden' }}>
-                            <Suspense fallback={<Loader cover={true}/>}>
-                                <Switch>
-                                    <Route exact path="/projects" component={ProjectPage} />
-                                    <Route exact path="/about" component={AboutMe} />
-                                    <Route exact path="/media" component={Contact} />
-                                    <Route path="/" component={HomePage} />
-                                </Switch>
-                            </Suspense>
-                        </div>
+                        <Switch>
+                            <Container>
+                                <Routes />
+                            </Container>
+                        </Switch>
                     </div>
                 </Router>
             </AppContext.Provider>

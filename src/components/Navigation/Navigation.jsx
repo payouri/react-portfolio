@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, memo } from 'react';
 import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
 import styles from './Navigation.css'
@@ -121,4 +121,4 @@ Navigation.propTypes = {
     ...withRouter.propTypes
 }
 
-export default withRouter(Navigation)
+export default withRouter(memo(Navigation))

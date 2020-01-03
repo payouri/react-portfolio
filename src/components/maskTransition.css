@@ -1,0 +1,31 @@
+
+
+.enter {
+    clip-path: circle(0% at 50% 12.5%);
+    z-index: 1;
+}
+
+.enterActive {
+    clip-path: circle(100%);
+    z-index: 1;
+}
+
+.exit {
+    clip-path: circle(100%);
+    z-index: 10;
+    /* opacity: 10; */
+    display: none;
+}
+
+.exitActive {
+    clip-path: circle(0%);
+    z-index: 10;
+    display: none;
+}
+/* .exitDone {
+    display: none;
+} */
+
+.exit, .enter, .enterActive, .exitActive {
+    transition: opacity 600ms, clip-path cubic-bezier(0.68, -0.55, 0.265, 1.55) 800ms;
+}

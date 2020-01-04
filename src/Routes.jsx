@@ -1,4 +1,4 @@
-import React, { lazy } from 'react'
+import React, { lazy, memo, useState, useEffect } from 'react'
 import { Switch, Route, useLocation } from 'react-router'
 
 const HomePage = lazy(() => import('@pages/HomePage'))
@@ -6,8 +6,15 @@ const ProjectPage = lazy(() => import('@pages/Projects'))
 const AboutMe = lazy(() => import('@pages/AboutMe'))
 const Contact = lazy(() => import('@pages/Contact'))
 
-function Routes() {
-    const location = useLocation()
+const Routes = () => {
+    const [location, setLocation] = useState({})
+    const loc = useLocation()
+    useEffect(() => {
+        if(loc.key !== location.key) {
+            setLocation(loc)
+        }
+        return () => {  }
+    }, [])
     return (
         <Switch location={location}>
             <Route exact path="/projects" component={ProjectPage} />
@@ -18,4 +25,4 @@ function Routes() {
     )
 }
 
-export default Routes
+export default memo(Routes)

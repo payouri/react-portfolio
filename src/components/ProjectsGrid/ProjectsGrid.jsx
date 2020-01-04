@@ -7,7 +7,7 @@ import backgrounds from './CategoryBackground.css'
 import projects from '../../projects/build_index.json'
 import Loader from '@cmp/Loader/Loader'
 import AppContext from '@contexts/AppContext'
-
+import Screen from '@cmp/Screen/Screen'
 const Tooltip = React.lazy(() => import('@cmp/Tooltip/Tooltip'))
 const ProjectIframe = React.lazy(() => import('@cmp/ProjectIframe/ProjectIframe'))
 const Icon = React.lazy(() => import('@cmp/Icon/Icon'))
@@ -41,7 +41,7 @@ CategoryBackground.defaultProps = {
 }
 
 const SocialBar = ({ github, codepen, npmjs, medium }) => {
-    
+
     const [tooltipLabel, setToolTipLabel] = useState('')
     const [toolTipRef, setToolTipRef] = useState(null)
 
@@ -52,18 +52,18 @@ const SocialBar = ({ github, codepen, npmjs, medium }) => {
         medium: 'Medium article',
     }
 
-    const onMouse = function({ currentTarget, type }, label) {
+    const onMouse = function ({ currentTarget, type }, label) {
         setToolTipLabel(type == 'mouseenter' ? label : '')
         setToolTipRef(type == 'mouseenter' ? currentTarget : null)
     }
 
     return (
         <div className={styles['project-social']}>
-            { github && <a target="_blank" rel="noopener noreferrer" onMouseEnter={e => { onMouse(e, 'github') }} onMouseLeave={onMouse} href={github}><Icon prefix="fab" icon={'github-alt'} /></a> }
-            { codepen && <a target="_blank" rel="noopener noreferrer" onMouseEnter={e => { onMouse(e, 'codepen') }} onMouseLeave={onMouse} href={codepen}><Icon prefix="fab" icon={'codepen'} /></a> }
-            { npmjs && <a target="_blank" rel="noopener noreferrer" onMouseEnter={e => { onMouse(e, 'npmjs') }} onMouseLeave={onMouse} href={npmjs}><Icon prefix="fab" icon={'npm'} /></a> }
-            { medium && <a target="_blank" rel="noopener noreferrer" onMouseEnter={e => { onMouse(e, 'medium') }} onMouseLeave={onMouse} href={medium}><Icon prefix="fab" icon={'medium-m'} /></a> }
-            { (github || codepen || npmjs || medium) && <Tooltip label={labels[tooltipLabel]} position={'bottom'} rootElem={toolTipRef} show={!!toolTipRef}/> }
+            {github && <a target="_blank" rel="noopener noreferrer" onMouseEnter={e => { onMouse(e, 'github') }} onMouseLeave={onMouse} href={github}><Icon prefix="fab" icon={'github-alt'} /></a>}
+            {codepen && <a target="_blank" rel="noopener noreferrer" onMouseEnter={e => { onMouse(e, 'codepen') }} onMouseLeave={onMouse} href={codepen}><Icon prefix="fab" icon={'codepen'} /></a>}
+            {npmjs && <a target="_blank" rel="noopener noreferrer" onMouseEnter={e => { onMouse(e, 'npmjs') }} onMouseLeave={onMouse} href={npmjs}><Icon prefix="fab" icon={'npm'} /></a>}
+            {medium && <a target="_blank" rel="noopener noreferrer" onMouseEnter={e => { onMouse(e, 'medium') }} onMouseLeave={onMouse} href={medium}><Icon prefix="fab" icon={'medium-m'} /></a>}
+            {(github || codepen || npmjs || medium) && <Tooltip label={labels[tooltipLabel]} position={'bottom'} rootElem={toolTipRef} show={!!toolTipRef} />}
         </div>
     )
 }
@@ -80,24 +80,24 @@ const ProjectPreview = ({ name, cover, directory, htmlBody, description, tagline
     return (
         <div className={styles['preview-wrapper']}>
             <div className={styles['project-jumbo']}>
-                { cover && (jumboType == 'cover' || !jumboType)
-                    ? <Img {...cover}/> 
+                {cover && (jumboType == 'cover' || !jumboType)
+                    ? <Img {...cover} />
                     : directory && (jumboType == 'iframe' || !jumboType)
-                        ? <CategoryBackground category={category}><Suspense fallback={<Loader cover={true}/>}>{!hold && <ProjectIframe project={directory}/>}</Suspense></CategoryBackground>
+                        ? <CategoryBackground category={category}><Suspense fallback={<Loader cover={true} />}>{!hold && <ProjectIframe project={directory} />}</Suspense></CategoryBackground>
                         : <CategoryBackground category={category} />
                 }
             </div>
             <CloseButton style={{ position: 'absolute', top: '3px', left: '.25rem' }} onClick={onCloseClick} />
             <div className={styles['preview-body']}>
-                <h2>{ name }</h2>
-                { tagline && <p>{ tagline }</p> }
-                <div style={{display: 'flex', flexFlow: 'row wrap', alignItems: 'center'}}>{ category && <div className={styles['preview-category']}><CategoryBackground category={category}>{capitalize(category.toLowerCase())}</CategoryBackground></div> }<SocialBar {...rest}/></div>
-                { description && <p>{ description }</p> }
-                { htmlBody && (
+                <h2>{name}</h2>
+                {tagline && <p>{tagline}</p>}
+                <div style={{ display: 'flex', flexFlow: 'row wrap', alignItems: 'center' }}>{category && <div className={styles['preview-category']}><CategoryBackground category={category}>{capitalize(category.toLowerCase())}</CategoryBackground></div>}<SocialBar {...rest} /></div>
+                {description && <p>{description}</p>}
+                {htmlBody && (
                     <div dangerouslySetInnerHTML={{ __html: htmlBody }}>
                     </div>
                 )}
-                { directory && !link &&
+                {directory && !link &&
                     <button onClick={() => { onSeeProjectClick() }}>
                         See
                     </button>
@@ -126,7 +126,7 @@ ProjectPreview.propTypes = {
 export default class ProjectsGrid extends Component {
 
     componentDidMount() {
-        
+
         this.previewWrapperRef.current.addEventListener('transitionstart', this.handlePreviewTransition)
         this.previewWrapperRef.current.addEventListener('transitionend', this.handlePreviewTransition)
 
@@ -148,10 +148,10 @@ export default class ProjectsGrid extends Component {
         this.handlePreviewTransition = this.handlePreviewTransition.bind(this)
 
     }
-    
+
     handlePreviewTransition({ type, target }) {
 
-        if(target === this.previewWrapperRef.current)
+        if (target === this.previewWrapperRef.current)
             this.setState({
                 inTransit: type == 'transitionstart'
             })
@@ -177,84 +177,75 @@ export default class ProjectsGrid extends Component {
     }
 
     render() {
-        
+
         const { grid, selected, showcase, inTransit } = this.state;
 
-        if(showcase)
-            return <ProjectIframe project={selected.directory} closeButton={true} onCloseClick={() => this.setState({ showcase: false })}/>
+        if (showcase)
+            return <ProjectIframe project={selected.directory} closeButton={true} onCloseClick={() => this.setState({ showcase: false })} />
         else
             return (
-                <AppContext.Consumer>
-                    {({ navbarOpen, navbarHeight, ...rest }) => (
-                        <div className={styles['projects-grid-wrapper']}
-                            style={{
-                                transform: navbarOpen ? `translateY(${navbarHeight}px)` : 'translate(0)',
-                                transition: navbarOpen ? 'transform 225ms' : 'transform 225ms 175ms',
-                                position: 'relative', overflow: 'hidden',
-                                maxHeight: '100%', height: '100%', width: '100%', 
+                <Screen avoidNav className={styles['projects-grid-wrapper']}>
+                    <div
+                        className={`${styles['projects-grid']} ${styles['grid-' + grid]}`}
+                        style={{ transition: `width ${clamp(projects.length * 10 + 100, 200, 425)}ms ease-out` }}
+                    >
+                        {projects.map((project, i, arr) => (
+                            <div onClick={() => { this.handleProjectClick(i) }} key={i} className={styles['project-wrapper']} style={{
+                                height: boxHeight + boxUnit,
+                                width: (grid == 'expanded' ? boxWidth : 100) + '%',
+                                maxWidth: grid == 'expanded' ? boxWidth + 'vw' : 'unset',
+                                top: `${(Math.floor(i / 4) * boxHeight)}${boxUnit}`,
+                                left: `${i % 4 * boxHeight}%`,
+                                transitionDuration: i * 25 + 200 + 'ms',
+                                transitionDelay: (arr.length - i) * 25 + 'ms',
+                                ...grid == 'expanded' ? {
+                                } : {
+                                        transform: `translate(-${i % 4 * 25}%, ${((i - Math.floor(i / 4)) * boxHeight)}${boxUnit})`,
+                                    }
                             }}>
-                            <div
-                                className={`${styles['projects-grid']} ${styles['grid-'+grid]}`}
-                                style={{transition: `width ${clamp(projects.length * 10 + 100, 200, 425)}ms ease-out`}}
-                            >
-                                { projects.map((project, i, arr) => (
-                                    <div onClick={() => { this.handleProjectClick(i) }} key={i} className={styles['project-wrapper']} style={{
-                                        height: boxHeight + boxUnit,
-                                        width: (grid == 'expanded' ? boxWidth : 100) + '%',
-                                        maxWidth: grid == 'expanded' ? boxWidth + 'vw' : 'unset',
-                                        top: `${(Math.floor(i/4) * boxHeight)}${boxUnit}`,
-                                        left: `${i%4 * boxHeight}%`,
-                                        transitionDuration: i * 25 + 200 + 'ms',
-                                        transitionDelay: (arr.length - i) * 25 + 'ms',
-                                        ...grid == 'expanded' ? {
-                                        } : {
-                                            transform: `translate(-${i%4 * 25}%, ${((i - Math.floor(i/4)) * boxHeight)}${boxUnit})`,
-                                        }
-                                    }}>
-                                        <CategoryBackground
-                                            category={project.category}
-                                            className={`${styles['project-box']} ${project === selected && grid !== 'expanded' ? styles['active'] : ''}`}
-                                        >
-                                            <h2
-                                                className={styles['project-box-title']}
-                                                style={{}}>{project.name}</h2>
-                                            <div
-                                                className={styles['project-box-category']}
-                                                style={{}}>{capitalize(project.category.toLowerCase())}</div>
-                                        </CategoryBackground>
-                                    </div>
-                                ))}
+                                <CategoryBackground
+                                    category={project.category}
+                                    className={`${styles['project-box']} ${project === selected && grid !== 'expanded' ? styles['active'] : ''}`}
+                                >
+                                    <h2
+                                        className={styles['project-box-title']}
+                                        style={{}}>{project.name}</h2>
+                                    <div
+                                        className={styles['project-box-category']}
+                                        style={{}}>{capitalize(project.category.toLowerCase())}</div>
+                                </CategoryBackground>
                             </div>
-                            <div 
-                                ref={this.previewWrapperRef}
-                                className={`${styles['project-preview']} ${styles['project-preview-'+grid]}`}
-                                style={{ 
-                                    left: boxWidth + '%',
-                                    width: `${100 - boxWidth}%`,
-                                    transitionDuration: projects.length * 10 + 200 + 'ms',
-                                }}
-                            >
-                                { typeof selected != 'undefined' && 
-                                    <Suspense fallback={<Loader cover={true}/>}>
-                                        {
-                                            <ProjectPreview
-                                                { ...selected } 
-                                                hold={inTransit}
-                                                onSeeProjectClick={() => { 
-                                                    if(selected.link)
-                                                        window.open(selected[selected.link] ? selected[selected.link] : selected.link, '_blank')
-                                                    else if(selected.directory)
-                                                        this.setState({ showcase: true })
-                                                }} 
-                                                onCloseClick={() => this.setState({ grid: 'expanded'}) }
-                                            />
-                                        }
-                                    </Suspense>
+                        ))}
+                    </div>
+                    <div
+                        ref={this.previewWrapperRef}
+                        className={`${styles['project-preview']} ${styles['project-preview-' + grid]}`}
+                        style={{
+                            left: boxWidth + '%',
+                            width: `${100 - boxWidth}%`,
+                            transitionDuration: projects.length * 10 + 200 + 'ms',
+                        }}
+                    >
+                        {typeof selected != 'undefined' &&
+                            <Suspense fallback={<Loader cover={true} />}>
+                                {
+                                    <ProjectPreview
+                                        {...selected}
+                                        hold={inTransit}
+                                        onSeeProjectClick={() => {
+                                            if (selected.link)
+                                                window.open(selected[selected.link] ? selected[selected.link] : selected.link, '_blank')
+                                            else if (selected.directory)
+                                                this.setState({ showcase: true })
+                                        }}
+                                        onCloseClick={() => this.setState({ grid: 'expanded' })}
+                                    />
                                 }
-                            </div>
-                        </div>
-                    )}
-                </AppContext.Consumer>
+                            </Suspense>
+                        }
+                    </div>
+                </Screen>
+
             );
     }
 }

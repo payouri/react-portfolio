@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react'
+import React, { lazy, Suspense, memo } from 'react'
 // import PropTypes from 'prop-types'
 
 const Loader = lazy(() => import('@cmp/Loader/Loader'))
@@ -40,4 +40,4 @@ const HomePage = () => (
     </Suspense>
 )
 
-export default HomePage
+export default memo(HomePage)

@@ -43,6 +43,7 @@ class Navigation extends Component {
         this.handleWindowResize = debounce(this.handleWindowResize.bind(this), 75, false);
         this.handleOutSideClick = this.handleOutSideClick.bind(this);
         this.handleMenuClick = this.handleMenuClick.bind(this);
+        this.handleLinkClick = this.handleLinkClick.bind(this);
 
     }
     handleMenuClick() {
@@ -66,6 +67,22 @@ class Navigation extends Component {
 
         this.context.setNavbarHeight(this.navbarRef.current.getBoundingClientRect()['height'])
 
+    }
+    handleLinkClick(e) {
+        
+        const { onOpenStateChange, /* location */ } = this.props
+        const { target } = e
+        // if(target.href === location.pathname) {
+        //     e.preventDefault()
+        //     e.stopPropagation()
+        //     e.stopImmediatePropagation()
+        // }
+        if(target.href) {
+            this.setState({
+                open: false,
+                locked: false,
+            }, () => { typeof onOpenStateChange == 'function' && onOpenStateChange(this.state.open) })
+        }
     }
     handleMouse({ type, target }) {
 
@@ -93,11 +110,11 @@ class Navigation extends Component {
                 onMouseEnter={this.handleMouse}
                 onMouseLeave={this.handleMouse}
             >
-                <nav style={{ position: 'relative', }}>
+                <nav style={{ position: 'relative', }} onClick={this.handleLinkClick}>
                     <NavLink exact to={'/'} activeClassName={styles['active']}>Home</NavLink>
-                    <NavLink exact to={'/projects'} activeClassName={styles['active']} href='#'>Project</NavLink>
-                    <NavLink exact to={'/about'} activeClassName={styles['active']} href='#'>Myself</NavLink>
-                    <NavLink exact to={'/media'} activeClassName={styles['active']} href='#'>Contact</NavLink>
+                    <NavLink exact to={'/projects'} activeClassName={styles['active']}>Project</NavLink>
+                    <NavLink exact to={'/about'} activeClassName={styles['active']}>Myself</NavLink>
+                    <NavLink exact to={'/media'} activeClassName={styles['active']}>Contact</NavLink>
                 </nav>
                 <MenuButton
                     open={open}

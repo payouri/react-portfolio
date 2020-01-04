@@ -84,11 +84,9 @@ class App extends Component {
                         <Suspense fallback={<Loader cover={true} />}>
                             <Navigation open={this.state.navbarOpen} onOpenStateChange={state => { this.setState({ navbarOpen: state }) }} />
                         </Suspense>
-                        <Switch>
-                            <Container>
-                                <Routes />
-                            </Container>
-                        </Switch>
+                        <Container>
+                            <Routes />
+                        </Container>
                     </div>
                 </Router>
             </AppContext.Provider>

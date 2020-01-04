@@ -1,5 +1,5 @@
 .form {
-    margin: auto;
+    margin: .5rem auto auto;
     display: flex;
     background: rgba(18, 18, 18, .025);
     flex-direction: column;
@@ -14,4 +14,14 @@
 }
 .form > *:last-child {
     margin-top: 0;
+}
+.my-words {
+    max-width: 60ch;
+}
+.word-box {
+    padding: 1.5rem 1rem;
+    width: 36rem;
+    max-width: 100%;
+    margin: auto auto .5rem;
+    background: rgba(18, 18, 18, .025);
 }

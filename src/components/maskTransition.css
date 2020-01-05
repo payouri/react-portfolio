@@ -1,7 +1,7 @@
 
 
 .enter {
-    clip-path: circle(0% at 50% 12.5%);
+    clip-path: circle(0% at 50% 90.5%);
     z-index: 10;
 }
 
@@ -14,20 +14,22 @@
     clip-path: circle(100%);
     /* opacity: 10; */
     /* display: none; */
-    opacity: .9;
+    background-color: rgb(45, 55, 72);
+    /* opacity: .9; */
     z-index: 1;
 }
 
 .exitActive {
     clip-path: circle(0% at 50% 12.5%);
+    background-color: rgb(45, 55, 72);
     /* display: none; */
     z-index: 1;
-    opacity: .5;
+    opacity: .3;
 }
 .exitDone {
     display: none;
 }
 
 .exit, .enter, .enterActive, .exitActive {
-    transition: opacity 600ms, clip-path cubic-bezier(0.68, -0.55, 0.265, 1.55) 800ms;
+    transition: opacity 600ms, clip-path cubic-bezier(0.68, -0.55, 0.265, 1.55) 1000ms;
 }

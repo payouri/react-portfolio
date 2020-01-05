@@ -10,6 +10,7 @@ import styles from './styles.css';
 import { debounce } from '@youri-kane/js_utils/EventUtils'
 import AppContext from '@contexts/AppContext'
 import Loader from '@cmp/Loader/Loader'
+import { iconLibrary } from '@cmp/Icon/Icon'
 import Container from './components/Container.jsx';
 import Routes from './Routes'
 // const Container = lazy(() => import('./components/Container.jsx'))

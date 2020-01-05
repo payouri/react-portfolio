@@ -11,7 +11,7 @@
 }
 
 .exit {
-    clip-path: circle(100%);
+    clip-path: circle(70%);
     /* opacity: 10; */
     /* display: none; */
     background-color: rgb(45, 55, 72);

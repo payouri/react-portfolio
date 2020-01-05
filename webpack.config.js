@@ -15,6 +15,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
+      '@constants': path.resolve(__dirname, './constants.js'),
       '@assets': path.resolve(__dirname, './src/assets'),
       '@cmp': path.resolve(__dirname, './src/components'),
       '@hoc': path.resolve(__dirname, './src/HOC'),

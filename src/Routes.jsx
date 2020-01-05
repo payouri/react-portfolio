@@ -14,7 +14,7 @@ const Routes = () => {
             setLocation(loc)
         }
         return () => {  }
-    }, [])
+    }, [location])
     return (
         <Switch location={location}>
             <Route exact path="/projects" component={ProjectPage} />

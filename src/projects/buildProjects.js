@@ -4,6 +4,7 @@ const { readdir, writeFile } = require('fs')
 const path = require('path')
 const webpack = require('webpack');
 const htmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackExcludeAssetsPlugin = require('html-webpack-exclude-assets-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const md = require('markdown-it')()
 
@@ -53,7 +54,7 @@ Promise.all(projects)
         const compiler = webpack({
             ...config,
             entry: projects.reduce((arr, project) => {
-                if(project.sources.indexOf('main.js')) {
+                if(project.sources.indexOf('main.js') > -1) {
                     arr[project.directory] = project.fullPath + '/main.js'
                 } else {
                     console.warn('project: ', project.name, ' has no main file')
@@ -64,9 +65,11 @@ Promise.all(projects)
                 new htmlWebpackPlugin({
                     title: p.name,
                     template: p.fullPath + '/index.html',
-                    filename: p.directory + '/index.html'
-                }) 
+                    filename: p.directory + '/index.html',
+                    excludeAssets: [new RegExp(`^((?!${p.directory}).)*$`)]
+                })
             )),
+            new HtmlWebpackExcludeAssetsPlugin()
             /* new MiniCssExtractPlugin({
                 filename: '[name]/styles.css'
             }) */]

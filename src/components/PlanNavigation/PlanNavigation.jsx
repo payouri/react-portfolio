@@ -19,19 +19,20 @@ const handleWheel = (mode, getNextPlan, globalDepth, setGlobalDepth, minDepth, m
 }
 const jumpPlanTransitionDuration = 500;
 const debouncedMouseWheel = debounce(handleWheel, 300, true)
-const Plan = ({ depth = 1, children, style, ...rest }) => {
+const Plan = ({ depth = 1, children, style, classNames }) => {
 
     return (
-        <div style={{
-            transition: `transform ${jumpPlanTransitionDuration - 1}ms`,
-            top: 0, left: 0, right: 0, bottom: 0,
-            ...style,
-            position: 'absolute',
-            transform: `translateZ(${depth}px)`,
-            transformStyle: 'preserve-3d',
-            // pointerEvents: 'none'
-        }}
-            {...rest}
+        <div 
+            className={classNames}
+            style={{
+                transition: `transform ${jumpPlanTransitionDuration - 1}ms`,
+                top: 0, left: 0, right: 0, bottom: 0,
+                ...style,
+                position: 'absolute',
+                transform: `translateZ(${depth}px)`,
+                transformStyle: 'preserve-3d',
+                // pointerEvents: 'none'
+            }}
         >
             {children}
         </div>

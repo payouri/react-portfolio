@@ -1,11 +1,11 @@
-import React, { lazy, Suspense, memo } from 'react'
+import React, { lazy, Suspense, memo, useContext, useEffect, useState } from 'react'
+import { mobileSize } from '@constants'
 // import PropTypes from 'prop-types'
-
+import AppContext from '@contexts/AppContext';
 const Loader = lazy(() => import('@cmp/Loader/Loader'))
 const FlippingText = lazy(() => import('@cmp/FlippingText/FlippingText'))
 const FieldOfView = lazy(() => import('@cmp/PlanNavigation/PlanNavigation'))
 const ShapeBackground = lazy(() => import('@cmp/ShapeBackground/ShapeBackground'))
-
 const initialDepth = innerWidth * .65
 const firstPlanShapes = [
     { color: 'orange', top: '50%', left: '9rem', size: '9rem', icon: 'octagone' },
@@ -20,24 +20,38 @@ const firstPlanShapes = [
     { color: 'red', top: '85%', left: '75%', icon: 'circle' },
 ]
 const plans = [
-  { style: { /* top: '1rem', bottom: '1rem', left: '1rem', right: '1rem', borderRadius: '.5rem', */ }, children:<ShapeBackground animated={false}/>, unReachable: true },
-  { style: { /* top: '1rem', bottom: '1rem', left: '1rem', right: '1rem', borderRadius: '.5rem', */ }, children:<ShapeBackground animated={true}/>, unReachable: true },
-  { style: { /* top: '1rem', bottom: '1rem', left: '1rem', right: '1rem', borderRadius: '.5rem', */ }, children:<ShapeBackground /> },
-  { style: { /* top: '1rem', bottom: '1rem', left: '1rem', right: '1rem', borderRadius: '.5rem', */ }, children:<ShapeBackground /> },
-  { style: { /* top: '1rem', bottom: '1rem', left: '1rem', right: '1rem', borderRadius: '.5rem', */ }, children:<ShapeBackground shapes={firstPlanShapes}/> }
-].map((p, i) => { p.depth = i * initialDepth; return p })
+    { style: { /* top: '1rem', bottom: '1rem', left: '1rem', right: '1rem', borderRadius: '.5rem', */ }, animation:false,  unReachable: true },
+    { style: { /* top: '1rem', bottom: '1rem', left: '1rem', right: '1rem', borderRadius: '.5rem', */ }, animation:true, unReachable: true },
+    { style: { /* top: '1rem', bottom: '1rem', left: '1rem', right: '1rem', borderRadius: '.5rem', */ }, animation:true },
+    { style: { /* top: '1rem', bottom: '1rem', left: '1rem', right: '1rem', borderRadius: '.5rem', */ }, animation:true },
+    { style: { /* top: '1rem', bottom: '1rem', left: '1rem', right: '1rem', borderRadius: '.5rem', */ }, animation: false, shapes: firstPlanShapes }
+]
 
-const HomePage = () => (
-    <Suspense fallback={<Loader cover={true}/>}>
-        <FieldOfView 
-            perspective={innerHeight/innerWidth * 1618} 
-            mode="jumpPlan" 
-            plans={plans} 
-            minDepth={0} 
-            maxDepth={(plans.length - 1) * initialDepth} 
-            initialDepth={(plans.length - 1) * initialDepth}/>
-        <FlippingText />
-    </Suspense>
-)
-
-export default memo(HomePage)
+const HomePage = () => {
+    const { windowWidth } = useContext(AppContext)
+    const [isMobile, setIsMobile] = useState(windowWidth <= mobileSize)
+    useEffect(() => {
+        setIsMobile(windowWidth <= mobileSize)
+        return () => {
+        };
+    }, [windowWidth])
+    const fields = plans.map((p, i) => { 
+        p.depth = i * initialDepth
+        console.log(p);
+        p.children = <ShapeBackground animation={isMobile ? i === 2 || i === 3 : p.animation} shapes={p.shapes} />
+        return p 
+    })
+    return (
+        <Suspense fallback={<Loader cover={true} />}>
+            <FieldOfView
+                perspective={innerHeight / innerWidth * 1618}
+                mode="jumpPlan"
+                plans={fields}
+                minDepth={0}
+                maxDepth={(plans.length - 1) * initialDepth}
+                initialDepth={(plans.length - 1) * initialDepth} />
+            <FlippingText />
+        </Suspense>
+    )
+}
+    export default memo(HomePage)

@@ -66,7 +66,7 @@ Promise.all(projects)
                     new htmlWebpackPlugin({
                         title: p.name,
                         template: p.fullPath + '/index.html',
-                        filename: `/${p.directory}/index.html`,
+                        filename: `projects/${p.directory}/index.html`,
                         excludeAssets: [new RegExp(`^((?!${p.directory}).)*$`)]
                     })
                 )),

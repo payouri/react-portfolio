@@ -3,8 +3,8 @@ const path = require('path')
 module.exports = {
     mode: 'production',
     output: {
-        path: path.resolve(__dirname, '../../dist/projects'),
-        filename: '[name]/bundle.js',
+        path: path.resolve(__dirname, '../../dist'),
+        filename: 'projects/[name]/bundle.js',
         chunkFilename: '[name]-[chunkhash].js',
         publicPath: '../'
     },

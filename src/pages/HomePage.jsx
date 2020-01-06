@@ -37,7 +37,6 @@ const HomePage = () => {
     }, [windowWidth])
     const fields = plans.map((p, i) => { 
         p.depth = i * initialDepth
-        console.log(p);
         p.children = <ShapeBackground animation={isMobile ? i === 2 || i === 3 : p.animation} shapes={p.shapes} />
         return p 
     })

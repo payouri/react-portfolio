@@ -6,7 +6,7 @@
     --emotion: attr(data-emotion);
     position: relative;
 }
-.my-text > emotive::after {
+.my-text-animated > emotive::after {
     content: var(--emotion);
     font-size: theme('fontSize.lg');
     position: absolute;

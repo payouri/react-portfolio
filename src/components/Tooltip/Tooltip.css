@@ -1,12 +1,13 @@
 .tooltip-outer {
     @apply bg-gray-800 text-white text-sm;
     padding: .125rem .25rem;
-    display: none;
     position: absolute;
     white-space: nowrap;
     border-radius: .125rem;
     pointer-events: none;
     box-shadow: 0 2px 2px rgba(18, 18, 18, .125);
+    display: block;
+    z-index: 9999;
 }
 .tooltip-outer:after {
     @apply bg-gray-800;
@@ -17,6 +18,8 @@
     content: '';
     /* border-radius; */
     box-shadow: inherit;
+    transition: none !important;
+    opacity: inherit;
 }
 .top, .bottom {
     transform: translateX(-50%);
@@ -39,7 +42,4 @@
 .right:after {
     left: 0%;
     top: 50%;
-}
-.visible {
-    display: block;
 }

@@ -34,7 +34,7 @@ export default class ProjectIframe extends Component {
         return (
             <div ref={this.wrapperRef} className='project-wrapper' style={{ position: 'relative', height: height ? height : '100%', width: width ? width : '100%' }}>
                 { closeButton && onCloseClick && <CloseButton style={{ position: 'absolute', top: '3px', left: '.25rem' }} onClick={onCloseClick} /> }
-                { project && <iframe onLoad={() => { this.setState({ loaded: true }) }} style={{ width: 'inherit', height: 'inherit' }} src={`./${project}/index.html`} frameBorder="0"></iframe> }
+                { project && <iframe onLoad={() => { this.setState({ loaded: true }) }} style={{ width: 'inherit', height: 'inherit' }} src={`./projects/${project}/index.html`} frameBorder="0"></iframe> }
                 { !loaded && <Loader cover={true} /> }
             </div>
         )

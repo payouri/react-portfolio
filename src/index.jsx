@@ -1,18 +1,14 @@
-import { basename } from '../constants.js'
-import React, { Suspense, lazy, Component } from 'react';
-import ReactDOM from 'react-dom'
+import Loader from '@cmp/Loader/Loader';
+import AppContext from '@contexts/AppContext';
+import { debounce } from '@youri-kane/js_utils/EventUtils';
+import React, { Component, lazy, Suspense } from 'react';
+import ReactDOM from 'react-dom';
 // import PropTypes from 'prop-types';
-import {
-    BrowserRouter as Router,
-    Switch,
-} from 'react-router-dom';
-import styles from './styles.css';
-import { debounce } from '@youri-kane/js_utils/EventUtils'
-import AppContext from '@contexts/AppContext'
-import Loader from '@cmp/Loader/Loader'
-import { iconLibrary } from '@cmp/Icon/Icon'
+import { BrowserRouter as Router } from 'react-router-dom';
+import { basename } from '../constants.js';
 import Container from './components/Container.jsx';
-import Routes from './Routes'
+import Routes from './Routes';
+import styles from './styles.css';
 // const Container = lazy(() => import('./components/Container.jsx'))
 // const Routes = lazy(() => import('./Routes.jsx'))
 const Navigation = lazy(() => import('@cmp/Navigation/Navigation'))
@@ -48,7 +44,7 @@ class App extends Component {
     }
 
     handleRouteChange(e) {
-        console.log(e);
+        console.log('dqse',e);
     }
 
     constructor(props) {
@@ -96,5 +92,12 @@ class App extends Component {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    ReactDOM.render(<App />, document.getElementById('app'));
+    const AppRoot = document.getElementById('app')
+    // window.addEventListener('focus', () => {
+    //     toggleFullscreen(AppRoot, (v) => { console.log(v); })
+    // })
+    // window.addEventListener('blur', () => {
+    //     toggleFullscreen(AppRoot, (v) => { console.log(v); })
+    // })
+    ReactDOM.render(<App />, AppRoot);
 })

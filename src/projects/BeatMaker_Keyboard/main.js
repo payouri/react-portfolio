@@ -1,8 +1,6 @@
 import './index.html'
 import styles from './styles.css'
 
-console.log(styles)
-
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);

@@ -21,7 +21,7 @@ const Routes = () => {
             <Route exact path='/about' component={AboutMe} />
             <Route exact path='/media' component={Contact} />
             <Route path='/' component={HomePage} />
-            <Redirect from="/*" to={'/'} />
+            {/* <Redirect from="/*" to={'/'} /> */}
         </Switch>
     )
 }

@@ -1,5 +1,5 @@
 .wrapper {
-    padding: 2.5rem;
+    padding: 1.5rem 3rem 1rem .5rem;
     display: flex; 
     flex-flow: column nowrap;
     align-items: flex-start;
@@ -37,5 +37,10 @@
         flex-basis: 75%;
         max-height: 100%;
         overflow: visible;
+    }
+}
+@screen lg {
+    .wrapper {
+        padding: 2.25rem 1.75rem;
     }
 }

@@ -54,7 +54,8 @@ class Screen {
         this.data = new Uint8Array(this.b);
         let canvas = {
                 height: this.DOMElem.height,
-                width: this.DOMElem.width
+                width: this.DOMElem.width,
+                // minWidth: this.DOMElem.width
             },
             ctx = this.ctx;
         let width = this.DOMElem.width / this.b;
@@ -254,6 +255,8 @@ class AudioKeyboard {
     }
     sizeWrapper() {
         this.wrapper.style.width = '99.5vmin';
+        this.wrapper.style.minWidth = '420px';
+        this.wrapper.style.maxWidth = '100%';
         window.addEventListener('resize', this.onWindowResize, false);
     }
     init() {

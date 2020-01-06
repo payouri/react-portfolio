@@ -2,6 +2,7 @@ import React, { Component, Suspense, useState, createRef } from 'react'
 import PropTypes from 'prop-types'
 import { clamp } from '@youri-kane/js_utils/MathUtils'
 import { capitalize } from '@youri-kane/js_utils/StringUtils'
+import { mobileSize } from '@constants'
 import styles from './ProjectGrid.css'
 import backgrounds from './CategoryBackground.css'
 import projects from '../../projects/build_index.json'
@@ -185,65 +186,73 @@ export default class ProjectsGrid extends Component {
         else
             return (
                 <Screen avoidNav className={styles['projects-grid-wrapper']}>
-                    <div
-                        className={`${styles['projects-grid']} ${styles['grid-' + grid]}`}
-                        style={{ transition: `width ${clamp(projects.length * 10 + 100, 200, 425)}ms ease-out` }}
-                    >
-                        {projects.map((project, i, arr) => (
-                            <div onClick={() => { this.handleProjectClick(i) }} key={i} className={styles['project-wrapper']} style={{
-                                height: boxHeight + boxUnit,
-                                width: (grid == 'expanded' ? boxWidth : 100) + '%',
-                                maxWidth: grid == 'expanded' ? boxWidth + 'vw' : 'unset',
-                                top: `${(Math.floor(i / 4) * boxHeight)}${boxUnit}`,
-                                left: `${i % 4 * boxHeight}%`,
-                                transitionDuration: i * 25 + 200 + 'ms',
-                                transitionDelay: (arr.length - i) * 25 + 'ms',
-                                ...grid == 'expanded' ? {
-                                } : {
-                                        transform: `translate(-${i % 4 * 25}%, ${((i - Math.floor(i / 4)) * boxHeight)}${boxUnit})`,
-                                    }
-                            }}>
-                                <CategoryBackground
-                                    category={project.category}
-                                    className={`${styles['project-box']} ${project === selected && grid !== 'expanded' ? styles['active'] : ''}`}
+                    <AppContext.Consumer>
+                        {({ windowWidth }) => { 
+                            const isMobile = windowWidth <= mobileSize;
+                            return (
+                            <>
+                                <div
+                                    className={`${styles['projects-grid']} ${styles['grid-' + isMobile ? 'expanded' : grid]}`}
+                                    style={{ transition: `width ${clamp(projects.length * 10 + 100, 200, 425)}ms ease-out` }}
                                 >
-                                    <h2
-                                        className={styles['project-box-title']}
-                                        style={{}}>{project.name}</h2>
-                                    <div
-                                        className={styles['project-box-category']}
-                                        style={{}}>{capitalize(project.category.toLowerCase())}</div>
-                                </CategoryBackground>
-                            </div>
-                        ))}
-                    </div>
-                    <div
-                        ref={this.previewWrapperRef}
-                        className={`${styles['project-preview']} ${styles['project-preview-' + grid]}`}
-                        style={{
-                            left: boxWidth + '%',
-                            width: `${100 - boxWidth}%`,
-                            transitionDuration: projects.length * 10 + 200 + 'ms',
-                        }}
-                    >
-                        {typeof selected != 'undefined' &&
-                            <Suspense fallback={<Loader cover={true} />}>
-                                {
-                                    <ProjectPreview
-                                        {...selected}
-                                        hold={inTransit}
-                                        onSeeProjectClick={() => {
-                                            if (selected.link)
-                                                window.open(selected[selected.link] ? selected[selected.link] : selected.link, '_blank')
-                                            else if (selected.directory)
-                                                this.setState({ showcase: true })
-                                        }}
-                                        onCloseClick={() => this.setState({ grid: 'expanded' })}
-                                    />
-                                }
-                            </Suspense>
-                        }
-                    </div>
+                                    {projects.map((project, i, arr) => (
+                                        <div onClick={() => { this.handleProjectClick(i) }} key={i} className={styles['project-wrapper']} style={{
+                                            height: boxHeight + boxUnit,
+                                            width: isMobile ? '100%' : (grid == 'expanded' ? boxWidth : 100) + '%',
+                                            maxWidth: isMobile ? '100%' : grid == 'expanded' ? boxWidth + 'vw' : 'unset',
+                                            top: isMobile ? `${i * boxHeight}${boxUnit}` : `${(Math.floor(i / 4) * boxHeight)}${boxUnit}`,
+                                            left: isMobile ? 0 :`${i % 4 * boxHeight}%`,
+                                            transitionDuration: i * 25 + 200 + 'ms',
+                                            transitionDelay: (arr.length - i) * 25 + 'ms',
+                                            ...grid == 'expanded' ? {
+                                            } : {
+                                                    transform: isMobile ? 'unset' : `translate(-${i % 4 * 25}%, ${((i - Math.floor(i / 4)) * boxHeight)}${boxUnit})`,
+                                                }
+                                        }}>
+                                            <CategoryBackground
+                                                category={project.category}
+                                                className={`${styles['project-box']} ${project === selected && grid !== 'expanded' ? styles['active'] : ''}`}
+                                            >
+                                                <h2
+                                                    className={styles['project-box-title']}
+                                                    style={{}}>{project.name}</h2>
+                                                <div
+                                                    className={styles['project-box-category']}
+                                                    style={{}}>{capitalize(project.category.toLowerCase())}</div>
+                                            </CategoryBackground>
+                                        </div>
+                                    ))}
+                                </div>
+                                <div
+                                    ref={this.previewWrapperRef}
+                                    className={`${styles['project-preview']} ${styles['project-preview-' + grid]} ${isMobile && styles['project-preview-mobile'] || ''}`}
+                                    style={{
+                                        left: isMobile ? 0 : boxWidth + '%',
+                                        width: isMobile ? '100%' : `${100 - boxWidth}%`,
+                                        transitionDuration: isMobile ? undefined : projects.length * 10 + 200 + 'ms',
+                                    }}
+                                >
+                                    {typeof selected != 'undefined' &&
+                                        <Suspense fallback={<Loader cover={true} />}>
+                                            {
+                                                <ProjectPreview
+                                                    {...selected}
+                                                    hold={inTransit}
+                                                    onSeeProjectClick={() => {
+                                                        if (selected.link)
+                                                            window.open(selected[selected.link] ? selected[selected.link] : selected.link, '_blank')
+                                                        else if (selected.directory)
+                                                            this.setState({ showcase: true })
+                                                    }}
+                                                    onCloseClick={() => this.setState({ grid: 'expanded' })}
+                                                />
+                                            }
+                                        </Suspense>
+                                    }
+                                </div>
+                            </>
+                        )}}
+                    </AppContext.Consumer>
                 </Screen>
 
             );

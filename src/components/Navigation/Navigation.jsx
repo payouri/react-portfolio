@@ -119,8 +119,8 @@ class Navigation extends Component {
                 <MenuButton
                     open={open}
                     buttonRef={this.menuButtonRef}
-                    style={{ 
-                        position: 'absolute', top: 'calc(100% + 3px)', right: '1.25rem',
+                    className={styles['menu-btn']}
+                    style={{
                         color: location.pathname === '/' ? 'white' : 'black',
                     }}
                     onClick={this.handleMenuClick}

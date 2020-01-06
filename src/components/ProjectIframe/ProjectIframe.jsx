@@ -10,7 +10,9 @@ const CloseButton = lazy(() => import('@cmp/Button/CloseButton'))
 
 export default class ProjectIframe extends Component {
     componentDidMount() {
-
+        if(this.iframeRef.current) {
+            console.log(this.iframeRef.current)
+        }
     }
     componentDidUpdate(prevProps) {
 
@@ -22,6 +24,7 @@ export default class ProjectIframe extends Component {
     constructor(props) {
         super(props)
         this.wrapperRef = React.createRef();
+        this.iframeRef = React.createRef();
         this.state = {
             loaded: false,
         }
@@ -34,7 +37,7 @@ export default class ProjectIframe extends Component {
         return (
             <div ref={this.wrapperRef} className='project-wrapper' style={{ position: 'relative', height: height ? height : '100%', width: width ? width : '100%' }}>
                 { closeButton && onCloseClick && <CloseButton style={{ position: 'absolute', top: '3px', left: '.25rem' }} onClick={onCloseClick} /> }
-                { project && <iframe onLoad={() => { this.setState({ loaded: true }) }} style={{ width: 'inherit', height: 'inherit' }} src={`./projects/${project}/index.html`} frameBorder="0"></iframe> }
+                { project && <iframe ref={this.iframeRef} onLoad={() => { this.setState({ loaded: true }) }} style={{ width: 'inherit', height: 'inherit' }} src={`./projects/${project}/index.html`} frameBorder="0"></iframe> }
                 { !loaded && <Loader cover={true} /> }
             </div>
         )

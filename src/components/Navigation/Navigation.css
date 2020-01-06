@@ -1,6 +1,6 @@
 .navbar {
     width: 100%;
-    @apply px-5 pt-4 pb-0 shadow-md flex-shrink-0;
+    @apply px-2 pt-4 pb-0 shadow-md flex-shrink-0;
     position: absolute;
     top: 0;
     background-color: rgba(45, 55, 72, 0.9);
@@ -21,6 +21,11 @@
     @apply text-md text-right;
     display: flex;
     justify-content: flex-end;
+}
+.menu-btn {
+    position: absolute;
+    top: calc(100% + 3px);
+    right: theme(spacing.2);
 }
 nav > a {
     @apply text-white py-2 px-3;
@@ -84,4 +89,20 @@ nav > a:nth-of-type(4)::before, nav > a:nth-of-type(4)::after {
 nav > a:hover::before, nav > a.active::before {
     /* background: white; */
     transform: scaleY(1)
+}
+@screen md {
+    .navbar {
+        @apply px-3
+    }
+    .menu-btn {
+        right: theme(spacing.3);
+    }
+}
+@screen lg {
+    .navbar {
+        @apply px-5
+    }
+    .menu-btn {
+        right: theme(spacing.5);
+    }
 }

@@ -25,12 +25,14 @@ body {
     background: #efefef;
     display: grid;
     grid-gap: 1.5vmin;
-    grid-template: repeat(3, 8vmin) / repeat(10, 8vmin);
+    grid-template: repeat(3, minmax(8vmin, 2rem)) / repeat(10, minmax(8vmin, 2rem));
     grid-template-areas: "a z e r t y u i o p" "q s d f g h j k l m" ". . w x c v b n . .";
     justify-content: center;
     border-top: 2px solid #666;
     padding: 3vmin;
     width: 99.5vmin;
+    min-width: 24rem;
+    max-width: 100%;
 }
 .keyboard--wrapper .keyboard .keyboard--key {
     align-items: center;

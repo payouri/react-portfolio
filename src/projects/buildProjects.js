@@ -81,10 +81,11 @@ Promise.all(projects)
             if(err) {
                 throw err
             }
-            console.log(stats)
+            // console.log(stats)
             console.log('build projects ok')
         })
     })
     .catch(err => {
+        console.warn('build projects failed')
         console.warn(err)
     })

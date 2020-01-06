@@ -139,7 +139,7 @@ module.exports = {
       filename: '[name].css',
       ignoreOrder: false, // Enable to remove warnings about conflicting order
     }),
-    new CopyWebpackPlugin(['src/sw.js']), 
+    new CopyWebpackPlugin(['src/sw.js', 'src/_redirects']), 
     new webpack.DefinePlugin({
       __ROUTER_BASENAME__: JSON.stringify(process.env.NODE_ENV === 'prod' ? '/' : "/dist"),
     }),

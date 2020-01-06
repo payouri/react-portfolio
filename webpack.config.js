@@ -123,9 +123,12 @@ module.exports = {
   },
   plugins: [
     new webpack.ProgressPlugin((percentage, message, ...args) => {
-      process.stdout.clearLine()
-      const modules = args[0] && args[0].indexOf('modules') > -1 ? args[0] : ''
-      process.stdout.write(` ${modules} stage:${message}, progress: ${Math.round(percentage * 100)}%\r`)
+      if(process.stdout.clearLine)
+        process.stdout.clearLine()
+      if(process.stdout.write) {
+        const modules = args[0] && args[0].indexOf('modules') > -1 ? args[0] : ''
+        process.stdout.write(` ${modules} stage:${message}, progress: ${Math.round(percentage * 100)}%\r`)
+      }
     }),
     htmlWebpackPlugin,
     // new HtmlWebpackExcludeAssetsPlugin(),

@@ -2,7 +2,6 @@ import Loader from '@cmp/Loader/Loader';
 import AppContext from '@contexts/AppContext';
 import { debounce } from '@youri-kane/js_utils/EventUtils';
 import React, { Component, lazy, Suspense } from 'react';
-import ReactDOM from 'react-dom';
 // import PropTypes from 'prop-types';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { basename } from '../constants.js';
@@ -91,13 +90,4 @@ class App extends Component {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const AppRoot = document.getElementById('app')
-    // window.addEventListener('focus', () => {
-    //     toggleFullscreen(AppRoot, (v) => { console.log(v); })
-    // })
-    // window.addEventListener('blur', () => {
-    //     toggleFullscreen(AppRoot, (v) => { console.log(v); })
-    // })
-    ReactDOM.render(<App />, AppRoot);
-})
+export default App

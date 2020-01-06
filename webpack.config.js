@@ -2,6 +2,7 @@ const webpack = require('webpack')
 const path = require('path')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 // const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const htmlWebpackPlugin = new HtmlWebPackPlugin({
@@ -138,6 +139,7 @@ module.exports = {
       filename: '[name].css',
       ignoreOrder: false, // Enable to remove warnings about conflicting order
     }),
+    new CopyWebpackPlugin(['src/sw.js']), 
     new webpack.DefinePlugin({
       __ROUTER_BASENAME__: JSON.stringify(process.env.NODE_ENV === 'prod' ? '/' : "/dist"),
     }),

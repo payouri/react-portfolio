@@ -21,6 +21,7 @@
     @apply text-md text-right;
     display: flex;
     justify-content: flex-end;
+    max-width: 100%;
 }
 .menu-btn {
     position: absolute;
@@ -28,7 +29,7 @@
     right: theme(spacing.2);
 }
 nav > a {
-    @apply text-white py-2 px-3;
+    @apply text-white py-2 px-1;
     font-family: sans-serif;
     text-decoration: none;
     position: relative;
@@ -90,12 +91,20 @@ nav > a:hover::before, nav > a.active::before {
     /* background: white; */
     transform: scaleY(1)
 }
+@screen sm {
+    nav > a {
+        @apply px-2
+    }
+}
 @screen md {
     .navbar {
         @apply px-3
     }
     .menu-btn {
         right: theme(spacing.3);
+    }
+    nav > a {
+        @apply px-4
     }
 }
 @screen lg {

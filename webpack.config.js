@@ -1,7 +1,7 @@
 const webpack = require('webpack')
 const path = require('path')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
-// const HtmlWebpackExcludeAssetsPlugin = require('html-webpack-exclude-assets-plugin')
+// const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const htmlWebpackPlugin = new HtmlWebPackPlugin({
@@ -21,8 +21,13 @@ module.exports = {
       '@hoc': path.resolve(__dirname, './src/HOC'),
       '@utils': path.resolve(__dirname, './src/utils/'),
       '@contexts': path.resolve(__dirname, './src/contexts'),
+      '@projects': path.resolve(__dirname, './src/projects'),
       '@pages': path.resolve(__dirname, './src/pages')
     }
+  },
+  output: {
+    filename: '[name].js',
+    chunkFilename: '[name]-[id].js'
   },
   // devtool: 'source-map',
   module: {
@@ -95,11 +100,11 @@ module.exports = {
   optimization: {
     splitChunks: {
       chunks: 'async',
-      minSize: 30000,
+      minSize: 0,
       // min/Size: 0,
       maxSize: 0,
       minChunks: 4,
-      maxAsyncRequests: 6,
+      maxAsyncRequests: 10,
       maxInitialRequests: 4,
       automaticNameDelimiter: '~',
       automaticNameMaxLength: 30,
@@ -117,6 +122,11 @@ module.exports = {
     }
   },
   plugins: [
+    new webpack.ProgressPlugin((percentage, message, ...args) => {
+      process.stdout.clearLine()
+      const modules = args[0] && args[0].indexOf('modules') > -1 ? args[0] : ''
+      process.stdout.write(` ${modules} stage:${message}, progress: ${Math.round(percentage * 100)}%\r`)
+    }),
     htmlWebpackPlugin,
     // new HtmlWebpackExcludeAssetsPlugin(),
     new MiniCssExtractPlugin({
@@ -128,5 +138,9 @@ module.exports = {
     new webpack.DefinePlugin({
       __ROUTER_BASENAME__: JSON.stringify(process.env.NODE_ENV === 'prod' ? '/' : "/dist"),
     }),
+    // new CleanWebpackPlugin({
+    //   cleanOnceBeforeBuildPatterns: ['*/**', '!dist/projects', '!dist/projects/**'],
+    //   verbose: true,
+    // })
   ]
 }

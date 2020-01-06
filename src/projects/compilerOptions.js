@@ -1,11 +1,12 @@
 const path = require('path')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 module.exports = {
     mode: 'production',
     output: {
-        path: path.resolve(__dirname, '../../dist'),
+        path: path.resolve(__dirname, '../../dist/projects'),
         filename: '[name]/bundle.js',
-        chunkFilename: '[name]-[chunkhash].js'
+        chunkFilename: '[name]-[chunkhash].js',
+        publicPath: '../'
     },
     resolve: {
         extensions: ['.js', '.json', '.jsx', '.css']

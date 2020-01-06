@@ -61,19 +61,20 @@ Promise.all(projects)
                 }
                 return arr
             }, {}),
-            plugins: [...projects.map(p => (
-                new htmlWebpackPlugin({
-                    title: p.name,
-                    template: p.fullPath + '/index.html',
-                    filename: p.directory + '/index.html',
-                    excludeAssets: [new RegExp(`^((?!${p.directory}).)*$`)]
-                })
-            )),
-            new HtmlWebpackExcludeAssetsPlugin()
+            plugins: [
+                ...projects.map(p => (
+                    new htmlWebpackPlugin({
+                        title: p.name,
+                        template: p.fullPath + '/index.html',
+                        filename: `/${p.directory}/index.html`,
+                        excludeAssets: [new RegExp(`^((?!${p.directory}).)*$`)]
+                    })
+                )),
+                new HtmlWebpackExcludeAssetsPlugin()
             /* new MiniCssExtractPlugin({
                 filename: '[name]/styles.css'
-            }) */]
-            
+            }) */
+            ]
         })
 
         compiler.run((err, stats) => {

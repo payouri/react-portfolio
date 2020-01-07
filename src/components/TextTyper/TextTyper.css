@@ -1,7 +1,3 @@
-.about-me {
-    font-size: theme('fontSize.md');
-    padding: 1ch;
-}
 .my-text > emotive {
     --emotion: attr(data-emotion);
     position: relative;

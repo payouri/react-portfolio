@@ -36,21 +36,30 @@ const AboutMe = () => {
                                 className={styles['social-list']}
                             >
                                 <li>
-                                    <Icon prefix="fab" icon="codepen" />
-                                    <span>Ideas & Challenges</span>
+                                    <a href="#" style={{ textDecoration: 'none', color: 'currentColor' }}>
+                                        <span style={{ marginRight: '.25rem', borderBottom: '1px solid' }}>codepen.io/Zorlimar</span>
+                                        <Icon prefix="fab" icon="codepen" />
+                                    </a>
                                 </li>
                                 <li>
-                                    <Icon prefix="fab" icon="github" />
-                                    <span>Dev tour</span>
+                                    <a href="#" style={{ textDecoration: 'none', color: 'currentColor' }}>
+                                        <span style={{ marginRight: '.25rem', borderBottom: '1px solid' }}>github.com/payouri</span>
+                                        <Icon prefix="fab" icon="github" />
+                                    </a>
                                 </li>
                                 <li>
-                                    <Icon icon="envelope" />
-                                    <span>Feedback</span>
+                                    <a href="#" style={{ textDecoration: 'none', color: 'currentColor' }}>
+                                        <span style={{ marginRight: '.25rem', borderBottom: '1px solid' }}>contact form</span>
+                                        <Icon icon="envelope" />
+                                    </a>
                                 </li>
                             </ul>
 
                         </div>
                     }
+                    rightColStyle={{
+                        padding: '.75rem'
+                    }}
                     rightSlot={
                         <TextTyper
                             startIndex={textDone ? aboutMeText.length : undefined}

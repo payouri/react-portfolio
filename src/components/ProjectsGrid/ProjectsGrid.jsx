@@ -187,16 +187,16 @@ export default class ProjectsGrid extends Component {
             return (
                 <Screen avoidNav className={styles['projects-grid-wrapper']}>
                     <AppContext.Consumer>
-                        {({ windowWidth }) => { 
+                        {({ windowWidth }) => {
                             const isMobile = windowWidth <= mobileSize;
                             return (
                             <>
                                 <div
-                                    className={`${styles['projects-grid']} ${styles['grid-' + isMobile ? 'expanded' : grid]}`}
+                                    className={`${styles['projects-grid']} ${styles[isMobile ? 'grid-expanded' : 'grid-' + grid]}`}
                                     style={{ transition: `width ${clamp(projects.length * 10 + 100, 200, 425)}ms ease-out` }}
                                 >
                                     {projects.map((project, i, arr) => (
-                                        <div onClick={() => { this.handleProjectClick(i) }} key={i} className={styles['project-wrapper']} style={{
+                                        <button onClick={() => { this.handleProjectClick(i) }} key={i} className={styles['project-wrapper']} style={{
                                             height: boxHeight + boxUnit,
                                             width: isMobile ? '100%' : (grid == 'expanded' ? boxWidth : 100) + '%',
                                             maxWidth: isMobile ? '100%' : grid == 'expanded' ? boxWidth + 'vw' : 'unset',
@@ -220,7 +220,7 @@ export default class ProjectsGrid extends Component {
                                                     className={styles['project-box-category']}
                                                     style={{}}>{capitalize(project.category.toLowerCase())}</div>
                                             </CategoryBackground>
-                                        </div>
+                                        </button>
                                     ))}
                                 </div>
                                 <div

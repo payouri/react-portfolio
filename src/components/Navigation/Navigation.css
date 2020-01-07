@@ -18,7 +18,7 @@
     transition-delay: 0ms;
 }
 .navbar > nav {
-    @apply text-md text-right;
+    @apply text-md text-center;
     display: flex;
     justify-content: flex-end;
     max-width: 100%;
@@ -30,6 +30,7 @@
 }
 nav > a {
     @apply text-white py-2 px-1;
+    flex: 1 1 100%;
     font-family: sans-serif;
     text-decoration: none;
     position: relative;
@@ -56,12 +57,6 @@ nav > a::before {
     transition: transform 225ms;
     transform: scaleY(0);
     z-index: -1;
-}
-nav > a:not(:first-child) {
-    margin-left: 2px;
-}
-nav > a:not(:last-child) {
-    margin-right: 2px;
 }
 nav > a:first-child::before, nav > a:first-child::after {
     border-top-left-radius: 4px;
@@ -93,7 +88,14 @@ nav > a:hover::before, nav > a.active::before {
 }
 @screen sm {
     nav > a {
-        @apply px-2
+        @apply px-3 text-right;
+        flex: 0 0 auto;
+    }
+    nav > a:not(:first-child) {
+        margin-left: 2px;
+    }
+    nav > a:not(:last-child) {
+        margin-right: 2px;
     }
 }
 @screen md {
@@ -109,9 +111,9 @@ nav > a:hover::before, nav > a.active::before {
 }
 @screen lg {
     .navbar {
-        @apply px-5
+        /* @apply px-4/ */
     }
     .menu-btn {
-        right: theme(spacing.5);
+        /* right: theme(spacing.); */
     }
 }

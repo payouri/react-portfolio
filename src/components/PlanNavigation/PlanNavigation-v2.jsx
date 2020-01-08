@@ -1,4 +1,5 @@
-import React, { useState, } from 'react'
+import React from 'react'
+// import { Transition, TransitionGroup, CSSTransition } from 'react-transition-group'
 import PropTypes from 'prop-types'
 import { clamp } from '@youri-kane/js_utils/MathUtils'
 import { throttle } from '@youri-kane/js_utils/EventUtils'
@@ -20,7 +21,6 @@ const handleWheel = (mode, getNextPlan, globalDepth, setGlobalDepth, minDepth, m
 const jumpPlanTransitionDuration = 500;
 const debouncedMouseWheel = throttle(handleWheel, 500)
 const Plan = ({ depth = 1, children, style, classNames }) => {
-
     return (
         <div 
             className={classNames}
@@ -38,7 +38,8 @@ const Plan = ({ depth = 1, children, style, classNames }) => {
         </div>
     )
 }
-const FieldOfView = ({ mode = 'freeWheel', perspective = innerWidth, initialDepth = 0, plans = [], maxDepth = 100, minDepth = -25, style, ...rest }) => {
+
+function PlanNavigation({ mode = 'freeWheel', perspective = innerWidth, initialDepth = 0, plans = [], maxDepth = 100, minDepth = -25, style, ...rest }) {
     const [globalDepth, setGlobalDepth] = React.useState(initialDepth)
     const [isTransit, setIsTransit] = React.useState(false)
 
@@ -51,31 +52,12 @@ const FieldOfView = ({ mode = 'freeWheel', perspective = innerWidth, initialDept
         const plan = otherPlans[0] ? delta < 0 ? otherPlans[0] : otherPlans[otherPlans.length - 1] : null
         return plan && plan.unReachable ? null : plan
     }
-
-    const handleWheel = e => {
-        e.persist()
-        const { deltaY } = e
-        if (mode == 'freeWheel') {
-            const newDepth = clamp(globalDepth + deltaY, minDepth, maxDepth)
-            setGlobalDepth(newDepth)
-        } else {
-            const plan = getNextPlan(deltaY)
-            if (plan) {
-                setGlobalDepth(plan.depth)
-            }
-        }
-    }
-
     return (
         <div
             {...rest}
             className={css['wrapper']}
-            onWheel={e => { 
-                mode == 'jumpPlan'
-                    ? debouncedMouseWheel(e) 
-                    : handleWheel(e) 
-                }
-            }
+            onWheel={e => { mode == 'jumpPlan' ? debouncedMouseWheel(mode, getNextPlan, globalDepth, setGlobalDepth, minDepth, maxDepth, e) 
+                                                : handleWheel(mode, getNextPlan, globalDepth, setGlobalDepth, minDepth, maxDepth, e) }}
             style={{
                 overflow: 'hidden',
                 position: 'absolute',
@@ -90,19 +72,20 @@ const FieldOfView = ({ mode = 'freeWheel', perspective = innerWidth, initialDept
                 ...style,
             }}
         >
-            {plans.map(({ unReachable, ...p }, index) => (
+            {plans.map(({ unReachable, children, ...p }, index) => (
                 <Plan
                     key={index} {...p}
                     style={{ 
                         ...p.style, 
-                        transition: mode == 'freeWheel' ? 'unset' : p.style.transition || `transform ${jumpPlanTransitionDuration - 1}ms` 
+                        transition: mode == 'freeWheel' ? 'unset' : p.style && p.style.transition || `transform ${jumpPlanTransitionDuration - 1}ms` 
                     }}
                     depth={!isNaN(p.depth) ? p.depth - globalDepth : index * innerWidth - globalDepth} 
-                />
+                >
+                    {children}
+                    </Plan>
             ))}
         </div>
     )
-
 }
 
-export default FieldOfView;
+export default PlanNavigation

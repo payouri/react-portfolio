@@ -73,18 +73,16 @@ class ShapeBackground extends Component {
         )))
     } 
     render() {
-        const { shapes } = this.props
+        const { shapes, wrapperStyle, paneStyle } = this.props
         return (
-            <>
-                <div className={styles['shapes-wrapper']} ref={this.backgroundRef}>
-                    <div className={styles['shapes-pane']}>
-                        { shapes
-                            ? shapes.map(s => <Shape key={Object.values(s).join('')} {...s} />)
-                            : this._generateShapes(80)
-                        }
-                    </div>
+            <div className={styles['shapes-wrapper']} ref={this.backgroundRef} style={wrapperStyle}>
+                <div className={styles['shapes-pane']} style={paneStyle}>
+                    { shapes
+                        ? shapes.map(s => <Shape key={Object.values(s).join('')} {...s} />)
+                        : this._generateShapes(80)
+                    }
                 </div>
-            </>
+            </div>
         )
     }
 }

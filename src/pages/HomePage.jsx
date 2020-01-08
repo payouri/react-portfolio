@@ -4,9 +4,9 @@ import { mobileSize } from '@constants'
 import AppContext from '@contexts/AppContext';
 const Loader = lazy(() => import('@cmp/Loader/Loader'))
 const FlippingText = lazy(() => import('@cmp/FlippingText/FlippingText'))
-const FieldOfView = lazy(() => import('@cmp/PlanNavigation/PlanNavigation'))
+const PlanNavigation = lazy(() => import('@cmp/PlanNavigation/PlanNavigation-v2'))
 const ShapeBackground = lazy(() => import('@cmp/ShapeBackground/ShapeBackground'))
-const initialDepth = innerWidth * .65
+const initialDepth = innerHeight / innerWidth * 40
 const firstPlanShapes = [
     { color: 'orange', top: '50%', left: '9rem', size: '9rem', icon: 'octagone' },
     { color: 'green', top: '70%', left: '92%', size: '2.5rem', icon: 'triangle' },
@@ -20,11 +20,11 @@ const firstPlanShapes = [
     { color: 'red', top: '85%', left: '75%', icon: 'circle' },
 ]
 const plans = [
-    { style: { /* top: '1rem', bottom: '1rem', left: '1rem', right: '1rem', borderRadius: '.5rem', */ }, animation:false,  unReachable: true },
-    { style: { /* top: '1rem', bottom: '1rem', left: '1rem', right: '1rem', borderRadius: '.5rem', */ }, animation:true, unReachable: true },
-    { style: { /* top: '1rem', bottom: '1rem', left: '1rem', right: '1rem', borderRadius: '.5rem', */ }, animation:true },
-    { style: { /* top: '1rem', bottom: '1rem', left: '1rem', right: '1rem', borderRadius: '.5rem', */ }, animation:true },
-    { style: { /* top: '1rem', bottom: '1rem', left: '1rem', right: '1rem', borderRadius: '.5rem', */ }, animation: false, shapes: firstPlanShapes }
+    { animation:false,  unReachable: true },
+    { animation:true, unReachable: true },
+    { animation:true },
+    { animation:true },
+    { animation: false, shapes: firstPlanShapes }
 ]
 
 const HomePage = () => {
@@ -35,15 +35,16 @@ const HomePage = () => {
         return () => {
         };
     }, [windowWidth])
+
     const fields = plans.map((p, i) => { 
-        p.depth = i * initialDepth
+        p.depth = i * initialDepth / 1
         p.children = <ShapeBackground animation={isMobile ? false : p.animation} shapes={p.shapes} />
         return p 
     })
     return (
         <Suspense fallback={<Loader cover={true} />}>
-            <FieldOfView
-                perspective={innerHeight / innerWidth * 1618}
+            <PlanNavigation
+                perspective={innerHeight / innerWidth * initialDepth}
                 mode="jumpPlan"
                 plans={fields}
                 minDepth={0}

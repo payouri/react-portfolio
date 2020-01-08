@@ -38,7 +38,7 @@ const Plan = ({ depth = 1, children, style, classNames }) => {
         </div>
     )
 }
-const FieldOfView = ({ mode = 'freeWheel', perspective = innerWidth, initialDepth = 0, plans = [], maxDepth = 100, minDepth = -25, styles, ...rest }) => {
+const FieldOfView = ({ mode = 'freeWheel', perspective = innerWidth, initialDepth = 0, plans = [], maxDepth = 100, minDepth = -25, style, ...rest }) => {
     const [globalDepth, setGlobalDepth] = React.useState(initialDepth)
     const [isTransit, setIsTransit] = React.useState(false)
 
@@ -68,7 +68,7 @@ const FieldOfView = ({ mode = 'freeWheel', perspective = innerWidth, initialDept
                 bottom: 0,
                 transformStyle: 'preserve-3d',
                 perspective,
-                ...styles,
+                ...style,
             }}
         >
             {plans.map(({ unReachable, ...p }, index) => (

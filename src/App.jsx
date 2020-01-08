@@ -8,6 +8,8 @@ import { basename } from '../constants.js';
 import Container from './components/Container.jsx';
 import Routes from './Routes';
 import styles from './styles.css';
+// import FullscreenError from './FullscreenError.jsx';
+import GridUI from '@utils/GridUI'
 // const Container = lazy(() => import('./components/Container.jsx'))
 // const Routes = lazy(() => import('./Routes.jsx'))
 const Navigation = lazy(() => import('@cmp/Navigation/Navigation'))
@@ -36,15 +38,17 @@ class App extends Component {
 
     }
 
-    componentDidCatch() {
-
-        document.write('error')
-
+    componentDidCatch(error, trace) {
+        // console.log(param);
+        const errorDisplay = document.querySelector('#error-display')
+        errorDisplay.innerText = error + trace.componentStack
+        errorDisplay.style.display = 'block'
+        // document.write('error')
     }
 
-    handleRouteChange(e) {
-        console.log('dqse',e);
-    }
+    // handleRouteChange(e) {
+    //     console.log('dqse',e);
+    // }
 
     constructor(props) {
         super(props);
@@ -53,8 +57,9 @@ class App extends Component {
             windowWidth: undefined,
             navbarOpen: false,
             navbarHeight: undefined,
+            hasError: false,
         }
-        this.handleRouteChange = debounce(this.handleRouteChange.bind(this), 75)
+        // this.handleRouteChange = debounce(this.handleRouteChange.bind(this), 75)
         this.onWindowResize = debounce(this.onWindowResize.bind(this), 75)
         this.setNavbarHeight = n => {
             this.setState({
@@ -68,13 +73,12 @@ class App extends Component {
         }
     }
     render() {
-
         return (
             <AppContext.Provider value={{
                 ...this.state,
                 setNavbarHeight: this.setNavbarHeight,
                 setAppState: this.setAppState
-            }}>
+                }}>
                 <Router basename={basename}>
                     <div className={styles["wrap"]}>
                         <Suspense fallback={<Loader cover={true} />}>
@@ -83,6 +87,7 @@ class App extends Component {
                         <Container>
                             <Routes />
                         </Container>
+                        <GridUI />
                     </div>
                 </Router>
             </AppContext.Provider>

@@ -2,6 +2,7 @@
 import photo from '@assets/imgs/71497177_10221257600255596_4122671362911240192_o.jpg'
 import React, { lazy, memo, Suspense, useEffect, useState } from 'react'
 import styles from './AboutMe.css'
+import { Link } from 'react-router-dom'
 
 const Screen = lazy(() => import('@cmp/Screen/Screen'))
 const TwoColumns = lazy(() => import('@cmp/Layouts/TwoColumns'))
@@ -36,22 +37,22 @@ const AboutMe = () => {
                                 className={styles['social-list']}
                             >
                                 <li>
-                                    <a href="#" style={{ textDecoration: 'none', color: 'currentColor' }}>
+                                    <a target="_blank" rel="noopener noreferrer" href="https://codepen.io/zorlimar" style={{ textDecoration: 'none', color: 'currentColor' }}>
                                         <span style={{ marginRight: '.25rem', borderBottom: '1px solid' }}>codepen.io/Zorlimar</span>
                                         <Icon prefix="fab" icon="codepen" />
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" style={{ textDecoration: 'none', color: 'currentColor' }}>
+                                    <a target="_blank" rel="noopener noreferrer" href="https://github.com/payouri" style={{ textDecoration: 'none', color: 'currentColor' }}>
                                         <span style={{ marginRight: '.25rem', borderBottom: '1px solid' }}>github.com/payouri</span>
                                         <Icon prefix="fab" icon="github" />
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" style={{ textDecoration: 'none', color: 'currentColor' }}>
+                                    <Link to={{pathname: '/media'}} style={{ textDecoration: 'none', color: 'currentColor' }}>
                                         <span style={{ marginRight: '.25rem', borderBottom: '1px solid' }}>contact form</span>
                                         <Icon icon="envelope" />
-                                    </a>
+                                    </Link>
                                 </li>
                             </ul>
 

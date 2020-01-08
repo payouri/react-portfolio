@@ -19,7 +19,6 @@ const TextTyper = ({ str, startIndex, pausingIndexes, pauseTime, timeBetweenType
                     setIndex(str.length)
                 if(index === str.length || index === typeUntil) {
                     setAnimate(true)
-                    console.log('object');
                     typeof onDone === 'function' && onDone()
                 }
             }

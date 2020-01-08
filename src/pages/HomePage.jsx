@@ -6,7 +6,7 @@ const Loader = lazy(() => import('@cmp/Loader/Loader'))
 const FlippingText = lazy(() => import('@cmp/FlippingText/FlippingText'))
 const PlanNavigation = lazy(() => import('@cmp/PlanNavigation/PlanNavigation-v2'))
 const ShapeBackground = lazy(() => import('@cmp/ShapeBackground/ShapeBackground'))
-const initialDepth = innerHeight / innerWidth * 40
+const initialDepth = innerHeight / innerWidth * 1.09
 const firstPlanShapes = [
     { color: 'orange', top: '50%', left: '9rem', size: '9rem', icon: 'octagone' },
     { color: 'green', top: '70%', left: '92%', size: '2.5rem', icon: 'triangle' },
@@ -37,14 +37,14 @@ const HomePage = () => {
     }, [windowWidth])
 
     const fields = plans.map((p, i) => { 
-        p.depth = i * initialDepth / 1
+        p.depth = i * initialDepth
         p.children = <ShapeBackground animation={isMobile ? false : p.animation} shapes={p.shapes} />
         return p 
     })
     return (
         <Suspense fallback={<Loader cover={true} />}>
             <PlanNavigation
-                perspective={innerHeight / innerWidth * initialDepth}
+                perspective={innerHeight / innerWidth}
                 mode="jumpPlan"
                 plans={fields}
                 minDepth={0}

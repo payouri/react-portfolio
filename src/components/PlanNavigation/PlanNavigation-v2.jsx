@@ -12,7 +12,7 @@ const handleWheel = (mode, getNextPlan, globalDepth, setGlobalDepth, minDepth, m
         const newDepth = clamp(globalDepth + deltaY, minDepth, maxDepth)
         setGlobalDepth(newDepth)
     } else {
-        const plan = getNextPlan(deltaY)
+        const plan = getNextPlan(-1 * deltaY)
         if (plan) {
             setGlobalDepth(plan.depth)
         }

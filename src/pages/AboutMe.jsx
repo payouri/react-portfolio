@@ -68,6 +68,7 @@ const AboutMe = () => {
                             pausingIndexes={pausingIndexes}
                             timeBetweenType={time}
                             pauseTime={pauseTime}
+                            onDone={() => void setTextDone(true)}
                         />
                     }
                 />

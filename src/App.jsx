@@ -87,7 +87,7 @@ class App extends Component {
                         <Container>
                             <Routes />
                         </Container>
-                        <GridUI />
+                        {/* <GridUI /> */}
                     </div>
                 </Router>
             </AppContext.Provider>

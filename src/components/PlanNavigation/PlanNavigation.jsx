@@ -1,7 +1,7 @@
 import React, { useState, } from 'react'
 import PropTypes from 'prop-types'
 import { clamp } from '@youri-kane/js_utils/MathUtils'
-import { debounce } from '@youri-kane/js_utils/EventUtils'
+import { throttle } from '@youri-kane/js_utils/EventUtils'
 import css from './PlanNavigation.css'
 
 const handleWheel = (mode, getNextPlan, globalDepth, setGlobalDepth, minDepth, maxDepth, e) => {
@@ -18,7 +18,7 @@ const handleWheel = (mode, getNextPlan, globalDepth, setGlobalDepth, minDepth, m
     }
 }
 const jumpPlanTransitionDuration = 500;
-const debouncedMouseWheel = debounce(handleWheel, 300, true)
+const debouncedMouseWheel = throttle(handleWheel, 500)
 const Plan = ({ depth = 1, children, style, classNames }) => {
 
     return (
@@ -47,9 +47,9 @@ const FieldOfView = ({ mode = 'freeWheel', perspective = innerWidth, initialDept
     }
 
     const getNextPlan = delta => {
-        const otherPlans = plans.filter(p => delta < 0 ? p.depth > globalDepth : p.depth < globalDepth)
+        const otherPlans = plans.filter(p => delta < 0 ? p.depth > globalDepth : delta > 0 ? p.depth < globalDepth : false)
         const plan = otherPlans[0] ? delta < 0 ? otherPlans[0] : otherPlans[otherPlans.length - 1] : null
-        return plan.unReachable ? null : plan
+        return plan && plan.unReachable ? null : plan
     }
     return (
         <div

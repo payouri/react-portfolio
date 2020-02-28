@@ -51,6 +51,7 @@
     "webpack-cli": "^3.3.9"
   },
   "scripts": {
+    "build:covers": "node ./src/projects/createCovers",
     "build:projects": "node ./src/projects/buildProjects",
     "build:dev": "npm run build:projects && node ./node_modules/webpack/bin/webpack.js ./src/index.js --mode development --config ./webpack.config.js",
     "dev": "node ./node_modules/webpack/bin/webpack.js ./src/index.js --config ./webpack.config.js --watch",

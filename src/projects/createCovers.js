@@ -5,10 +5,11 @@ const projects = require('./build_index.json')
 const { readdir } = require('fs')
 
 puppeteer.launch({
-    headless: false,
+    headless: true,
     executablePath: process.env.PUPPETEER_EXECUTABLE_PATH
 })
     .then(async browser => {
+        const page = await browser.newPage()
         for (let index = 0; index < projects.length; index++) {
             const project = projects[index]
             const projectFiles = await new Promise((resolve, reject) => {
@@ -20,7 +21,6 @@ puppeteer.launch({
                 })
             })
             if(projectFiles.includes('index.html')) {
-                const page = await browser.newPage()
                 const { directory } = project
                 await page.goto(`file://${path.join(__dirname, `../../dist/my_projects/${directory}`)}/index.html`)
                 await page.addScriptTag({
@@ -38,7 +38,7 @@ puppeteer.launch({
                 }
             }
         }
-        // browser.close()
+        browser.close()
     })
     .catch(err => {
         console.log(err)

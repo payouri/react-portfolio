@@ -31,20 +31,20 @@ const projects = Projects.map(async p => {
     }
     if (p.body) {
 
-        p.htmlBody = md.render(p.body).toString();
+        p.htmlBody = md.render(p.body).toString()
 
     }
 
-    return p;
+    return p
 
 })
 
 Promise.all(projects)
-    .then(projects => {
-        new Promise((resolve, reject) => {
+    .then(async projects => {
+        await new Promise((resolve, reject) => {
             writeFile(path.join(__dirname, 'build_index.json'), JSON.stringify(projects.map(p => { const { fullPath, ...rest } = p; return rest })), (err) => {
                 if (err) {
-                    reject(err);
+                    reject(err)
                 }
                 resolve()
             })
@@ -64,25 +64,30 @@ Promise.all(projects)
                 return arr
             }, {}),
             plugins: [
-                ...projects.map(p => (
-                    new htmlWebpackPlugin({
-                        title: p.name,
-                        template: p.fullPath + '/index.html',
-                        filename: `my_projects/${p.directory}/index.html`,
-                        inject: true,
-                        excludeAssets: [new RegExp(`^((?!${p.directory}).)*$`)]
-                    })
-                )),
+                ...projects.reduce((arr, p) => {
+                    if (p.sources.indexOf('index.html') > -1) {
+                        arr.push(
+                            new htmlWebpackPlugin({
+                                title: p.name,
+                                template: p.fullPath + '/index.html',
+                                filename: `my_projects/${p.directory}/index.html`,
+                                // inject: true,
+                                excludeAssets: [new RegExp(`^((?!${p.directory}).)*$`)]
+                            })
+                        )
+                    }
+                    return arr
+                }, []),
+                new HtmlWebpackExcludeAssetsPlugin(),
                 new CopyWebpackPlugin(projects.reduce((arr, p) => {
-                    if(p.sources.indexOf('cover.jpeg') > -1) {
+                    if (p.sources.indexOf('cover.jpeg') > -1) {
                         arr.push({
-                            from: p.fullPath + '/cover.jpeg',
-                            to: path.join(__dirname, `../../dist/my_projects/${p.directory}`)
+                            from: p.fullPath + '\\cover.jpeg',
+                            to: `/my_projects/${p.directory}/`
                         })
                     }
                     return arr
-                }, [])),
-                new HtmlWebpackExcludeAssetsPlugin()
+                }, []))
             ]
         })
 
@@ -90,6 +95,7 @@ Promise.all(projects)
             if (err) {
                 throw err
             }
+            console.log(stats)
             console.log('build projects ok')
         })
     })

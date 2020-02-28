@@ -85,7 +85,7 @@ const ProjectPreview = ({ name, cover, directory, htmlBody, description, tagline
         <div className={styles['preview-wrapper']}>
             <div className={styles['project-jumbo']}>
                 {cover && (jumboType == 'cover' || !jumboType)
-                    ? <Img {...cover} />
+                    ? <Img fallback={cover} objectFit='none' lazy />
                     : directory && (jumboType == 'iframe' || !jumboType)
                         ? <CategoryBackground category={category}><Suspense fallback={<Loader cover={true} />}>{hold ? <Loader cover={true} /> : <ProjectIframe project={project} />}</Suspense></CategoryBackground>
                         : <CategoryBackground category={category} />
@@ -114,7 +114,7 @@ const ProjectPreview = ({ name, cover, directory, htmlBody, description, tagline
 
 ProjectPreview.propTypes = {
     name: PropTypes.string,
-    cover: PropTypes.string,
+    cover: PropTypes,
     path: PropTypes.string,
     directory: PropTypes.string,
     htmlBody: PropTypes.string,
@@ -206,6 +206,7 @@ class ProjectsGrid extends Component {
                 <AppContext.Consumer>
                     {({ windowWidth }) => {
                         const isMobile = windowWidth <= mobileSize
+                        { console.log(selectedProjectData) }
                         return (
                             <>
                                 <div
@@ -262,6 +263,7 @@ class ProjectsGrid extends Component {
                                         <Suspense fallback={<Loader cover={true} />}>
                                             <ProjectPreview
                                                 {...selectedProjectData}
+                                                cover={selectedProjectData.sources.indexOf('cover.jpeg') > -1 && `/my_projects/${selectedProjectData.directory}/cover.jpeg` || ''}
                                                 hold={inTransit}
                                                 onSeeProjectClick={() => {
                                                     if (selectedProjectData.directory)

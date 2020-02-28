@@ -93,19 +93,19 @@ class Image extends Component {
 
     render() {
 
-        const { maxHeight, height, width, fallback, srcSet, alt, style, loaderStyle, lazy, loaderSize, ...rest } = this.props;
+        const { maxHeight, height, width, fallback, srcSet, alt, style, loaderStyle, lazy, loaderSize, objectFit, ...rest } = this.props;
         const { loaded, visible } = this.state;
         
         return lazy && !visible ? (
                 <picture onLoad={this.onLoad} {...rest} style={{maxWidth: '100%', maxHeight, height, width,}}>
                     { srcSet.map(({ url, media, type }, i) => <source key={i} srcSet={visible ? url : ''} data-src-set={url} media={media} type={type}/> )}
-                    <img ref={this.imgRef} src={visible ? fallback : ''} data-src={fallback} alt={alt} height={height} width={width} style={{ display: 'block', maxWidth: '100%', objectFit: 'cover', ...style, height, maxHeight, width, }}/>
+                    <img ref={this.imgRef} src={visible ? fallback : ''} data-src={fallback} alt={alt} height={height} width={width} style={{ display: 'block', maxWidth: '100%', objectFit, ...style, height, maxHeight, width, }}/>
                     { !loaded && <Loader cover={true} style={loaderStyle} size={loaderSize} /> }
                 </picture>
             ) : (
                 <picture onLoad={this.onLoad} {...rest} style={{maxWidth: '100%', maxHeight, height, width,}}>
                     { srcSet.map(({ url, media, type }, i) => <source key={i} srcSet={url} media={media} type={type}/> )}
-                    <img ref={this.imgRef} src={fallback} alt={alt} height={height} width={width} style={{ display: 'block', maxWidth: '100%', objectFit: 'cover', ...style, height, maxHeight, width, }}/>
+                    <img ref={this.imgRef} src={fallback} alt={alt} height={height} width={width} style={{ display: 'block', maxWidth: '100%', objectFit, ...style, height, maxHeight, width, }}/>
                     { !loaded && <Loader cover={true} style={loaderStyle} size={loaderSize} /> }
                 </picture>
             )
@@ -126,6 +126,7 @@ Image.propTypes = {
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     loaderStyle: PropTypes.object,
     loaderSize: Loader.propTypes.size,
+    objectFit: PropTypes.oneOf(['cover', 'contain', 'none'])
 }
 Image.defaultProps = {
     height: 'auto',
@@ -135,6 +136,7 @@ Image.defaultProps = {
     style: {},
     srcSet: [],
     width: '100%',
+    objectFit: 'cover'
 }
 
 export default Image;

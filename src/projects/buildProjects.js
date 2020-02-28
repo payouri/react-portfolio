@@ -1,3 +1,4 @@
+require('dotenv').config()
 const Projects = require('./index.json')
 const config = require('./compilerOptions')
 const { readdir, writeFile } = require('fs')
@@ -10,8 +11,8 @@ const md = require('markdown-it')()
 const puppeteer = require('puppeteer')
 
 puppeteer.launch({
-    headless: false,
-    executablePath: "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+    // headless: true,
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH
 })
     .then(browser => {
 

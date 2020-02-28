@@ -4,7 +4,8 @@
   "description": "my portfolio written in jsx",
   "main": "index.js",
   "dependencies": {
-    "@babel/runtime": "^7.7.7"
+    "@babel/runtime": "^7.7.7",
+    "dotenv": "^8.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",

@@ -1,3 +1,6 @@
 {
-    "liveServer.settings.file": "/dist/index.html"
+    "liveServer.settings.root": "/dist",
+    "liveServer.settings.mount": [
+        ["/dist/my_projects", "/my_projects"],
+    ]
 }

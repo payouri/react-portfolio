@@ -1,13 +1,14 @@
 import React, { Component, Suspense, useState, createRef } from 'react'
+import { withRouter } from 'react-router'
 import PropTypes from 'prop-types'
 import { clamp } from '@youri-kane/js_utils/MathUtils'
 import { capitalize } from '@youri-kane/js_utils/StringUtils'
 import { mobileSize } from '@constants'
+import AppContext from '@contexts/AppContext'
+import ProjectsContext from '@contexts/ProjectsContext'
 import styles from './ProjectGrid.css'
 import backgrounds from './CategoryBackground.css'
-import projects from '../../projects/build_index.json'
 import Loader from '@cmp/Loader/Loader'
-import AppContext from '@contexts/AppContext'
 import Screen from '@cmp/Screen/Screen'
 const Tooltip = React.lazy(() => import('@cmp/Tooltip/Tooltip'))
 const ProjectIframe = React.lazy(() => import('@cmp/ProjectIframe/ProjectIframe'))
@@ -77,14 +78,16 @@ SocialBar.propTypes = {
 }
 
 const ProjectPreview = ({ name, cover, directory, htmlBody, description, tagline, category, onCloseClick, link, onSeeProjectClick, jumboType, hold, ...rest }) => {
-
+    const project = {
+        name, cover, directory, htmlBody, description, tagline, category, link
+    }
     return (
         <div className={styles['preview-wrapper']}>
             <div className={styles['project-jumbo']}>
                 {cover && (jumboType == 'cover' || !jumboType)
                     ? <Img {...cover} />
                     : directory && (jumboType == 'iframe' || !jumboType)
-                        ? <CategoryBackground category={category}><Suspense fallback={<Loader cover={true} />}>{!hold && <ProjectIframe project={directory} />}</Suspense></CategoryBackground>
+                        ? <CategoryBackground category={category}><Suspense fallback={<Loader cover={true} />}>{hold ? <Loader cover={true} /> : <ProjectIframe project={project} />}</Suspense></CategoryBackground>
                         : <CategoryBackground category={category} />
                 }
             </div>
@@ -121,16 +124,33 @@ ProjectPreview.propTypes = {
     link: PropTypes.string,
     onCloseClick: PropTypes.func,
     onSeeProjectClick: PropTypes.func,
-    jumboType: PropTypes.string
+    jumboType: PropTypes.string,
+    hold: PropTypes.bool
 }
 
-export default class ProjectsGrid extends Component {
+class ProjectsGrid extends Component {
+
+    componentDidUpdate() {
+
+        const { selectedRef: { current } } = this
+        const active = current.querySelector('[class*="active"]')
+        if (active) {
+            active.parentNode.scrollIntoView({ behavior: 'smooth' })
+        }
+
+    }
 
     componentDidMount() {
-
         this.previewWrapperRef.current.addEventListener('transitionstart', this.handlePreviewTransition)
         this.previewWrapperRef.current.addEventListener('transitionend', this.handlePreviewTransition)
-
+        const { selectedProject } = this.context
+        if(selectedProject > -1) {
+            this.setState({ grid: 'decked' })
+        }
+    }
+    componentWillUnmount() {
+        this.previewWrapperRef.current.removeEventListener('transitionstart', this.handlePreviewTransition)
+        this.previewWrapperRef.current.removeEventListener('transitionend', this.handlePreviewTransition)
     }
 
     constructor(props) {
@@ -147,7 +167,7 @@ export default class ProjectsGrid extends Component {
         this.previewWrapperRef = createRef()
         this.handleProjectClick = this.handleProjectClick.bind(this)
         this.handlePreviewTransition = this.handlePreviewTransition.bind(this)
-
+        this.selectedRef = createRef()
     }
 
     handlePreviewTransition({ type, target }) {
@@ -159,12 +179,10 @@ export default class ProjectsGrid extends Component {
 
     }
 
-    handleProjectClick(projectIndex) {
+    handleProjectClick() {
         this.setState({
-            selected: projects[projectIndex],
             grid: 'decked',
         })
-
     }
 
     _toggleGrid() {
@@ -179,39 +197,46 @@ export default class ProjectsGrid extends Component {
 
     render() {
 
-        const { grid, selected, showcase, inTransit } = this.state;
+        const { selectedRef } = this
+        const { grid, inTransit } = this.state
+        const { projects, selectedProject, setSelectedProject, selectedProjectData, openProjectIframe } = this.context
 
-        if (showcase)
-            return <ProjectIframe project={selected.directory} closeButton={true} onCloseClick={() => this.setState({ showcase: false })} />
-        else
-            return (
-                <Screen avoidNav className={styles['projects-grid-wrapper']}>
-                    <AppContext.Consumer>
-                        {({ windowWidth }) => {
-                            const isMobile = windowWidth <= mobileSize;
-                            return (
+        return (
+            <Screen avoidNav className={styles['projects-grid-wrapper']}>
+                <AppContext.Consumer>
+                    {({ windowWidth }) => {
+                        const isMobile = windowWidth <= mobileSize
+                        return (
                             <>
                                 <div
                                     className={`${styles['projects-grid']} ${styles[isMobile ? 'grid-expanded' : 'grid-' + grid]}`}
                                     style={{ transition: `width ${clamp(projects.length * 10 + 100, 200, 425)}ms ease-out` }}
+                                    ref={selectedRef}
+
                                 >
                                     {projects.map((project, i, arr) => (
-                                        <button onClick={() => { this.handleProjectClick(i) }} key={i} className={styles['project-wrapper']} style={{
-                                            height: boxHeight + boxUnit,
-                                            width: isMobile ? '100%' : (grid == 'expanded' ? boxWidth : 100) + '%',
-                                            maxWidth: isMobile ? '100%' : grid == 'expanded' ? boxWidth + 'vw' : 'unset',
-                                            top: isMobile ? `${i * boxHeight}${boxUnit}` : `${(Math.floor(i / 4) * boxHeight)}${boxUnit}`,
-                                            left: isMobile ? 0 :`${i % 4 * boxHeight}%`,
-                                            transitionDuration: i * 25 + 200 + 'ms',
-                                            transitionDelay: (arr.length - i) * 25 + 'ms',
-                                            ...grid == 'expanded' ? {
-                                            } : {
-                                                    transform: isMobile ? 'unset' : `translate(-${i % 4 * 25}%, ${((i - Math.floor(i / 4)) * boxHeight)}${boxUnit})`,
-                                                }
-                                        }}>
+                                        <button
+                                            onClick={() => { setSelectedProject(i); this.setState({ grid: 'decked' }) }}
+                                            key={i}
+                                            className={styles['project-wrapper']}
+                                            data-active={i === selectedProject}
+                                            style={{
+                                                height: boxHeight + boxUnit,
+                                                width: isMobile ? '100%' : (selectedProject === -1 ? boxWidth : 100) + '%',
+                                                maxWidth: isMobile ? '100%' : selectedProject === -1 ? boxWidth + 'vw' : 'unset',
+                                                top: isMobile ? `${i * boxHeight}${boxUnit}` : `${(Math.floor(i / 4) * boxHeight)}${boxUnit}`,
+                                                left: isMobile ? 0 : `${i % 4 * boxHeight}%`,
+                                                transitionDuration: i * 25 + 200 + 'ms',
+                                                transitionDelay: (arr.length - i) * 25 + 'ms',
+                                                ...selectedProject === -1 ? {
+                                                } : {
+                                                        transform: isMobile ? 'unset' : `translate(-${i % 4 * 25}%, ${((i - Math.floor(i / 4)) * boxHeight)}${boxUnit})`,
+                                                    }
+                                            }}
+                                        >
                                             <CategoryBackground
                                                 category={project.category}
-                                                className={`${styles['project-box']} ${project === selected && grid !== 'expanded' ? styles['active'] : ''}`}
+                                                className={`${styles['project-box']} ${i === selectedProject ? styles['active'] : ''}`}
                                             >
                                                 <h2
                                                     className={styles['project-box-title']}
@@ -232,29 +257,32 @@ export default class ProjectsGrid extends Component {
                                         transitionDuration: isMobile ? undefined : projects.length * 10 + 200 + 'ms',
                                     }}
                                 >
-                                    {typeof selected != 'undefined' &&
+                                    {
+                                        selectedProject > -1 &&
                                         <Suspense fallback={<Loader cover={true} />}>
-                                            {
-                                                <ProjectPreview
-                                                    {...selected}
-                                                    hold={inTransit}
-                                                    onSeeProjectClick={() => {
-                                                        if (selected.link)
-                                                            window.open(selected[selected.link] ? selected[selected.link] : selected.link, '_blank')
-                                                        else if (selected.directory)
-                                                            this.setState({ showcase: true })
-                                                    }}
-                                                    onCloseClick={() => this.setState({ grid: 'expanded' })}
-                                                />
-                                            }
+                                            <ProjectPreview
+                                                {...selectedProjectData}
+                                                hold={inTransit}
+                                                onSeeProjectClick={() => {
+                                                    if (selectedProjectData.directory)
+                                                        openProjectIframe(selectedProject)
+                                                    else if (selectedProjectData.link)
+                                                        window.open(selectedProjectData[selectedProjectData.link] ? selectedProjectData[selectedProjectData.link] : selectedProjectData.link, '_blank')
+                                                }}
+                                                onCloseClick={() => { setSelectedProject(-1); this.setState({ grid: 'expanded' }) }}
+                                            />
                                         </Suspense>
                                     }
                                 </div>
-                            </>
-                        )}}
-                    </AppContext.Consumer>
-                </Screen>
 
-            );
+                            </>
+                        )
+                    }}
+                </AppContext.Consumer>
+            </Screen>
+
+        );
     }
 }
+ProjectsGrid.contextType = ProjectsContext
+export default withRouter(ProjectsGrid)

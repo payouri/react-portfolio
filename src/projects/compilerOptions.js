@@ -4,9 +4,9 @@ module.exports = {
     mode: 'production',
     output: {
         path: path.resolve(__dirname, '../../dist'),
-        filename: 'projects/[name]/bundle.js',
+        filename: 'my_projects/[name]/bundle.js',
         chunkFilename: '[name]-[chunkhash].js',
-        // publicPath: '../'
+        publicPath: '/'
     },
     resolve: {
         extensions: ['.js', '.json', '.jsx', '.css']

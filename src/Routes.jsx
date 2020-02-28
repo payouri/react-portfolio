@@ -17,10 +17,10 @@ const Routes = () => {
     }, [location])
     return (
         <Switch location={location}>
-            <Route exact path='/projects' component={ProjectPage} />
+            <Route path='/projects' component={ProjectPage} />
             <Route exact path='/about' component={AboutMe} />
             <Route exact path='/media' component={Contact} />
-            <Route path='/' component={HomePage} />
+            <Route exact path='/' component={HomePage} />
             {/* <Redirect from="/*" to={'/'} /> */}
         </Switch>
     )

@@ -28,7 +28,8 @@ module.exports = {
   },
   output: {
     filename: '[name].js',
-    chunkFilename: '[name]-[id].js'
+    chunkFilename: '[name]-[id].js',
+    publicPath: '/'
   },
   // devtool: 'source-map',
   module: {
@@ -141,7 +142,7 @@ module.exports = {
     }),
     new CopyWebpackPlugin(['src/sw.js', 'src/_redirects']), 
     new webpack.DefinePlugin({
-      __ROUTER_BASENAME__: JSON.stringify(process.env.NODE_ENV === 'prod' ? '/' : "/dist"),
+      __ROUTER_BASENAME__: JSON.stringify(process.env.NODE_ENV === 'prod' ? '/' : "/"),
     }),
     // new CleanWebpackPlugin({
     //   cleanOnceBeforeBuildPatterns: ['*/**', '!dist/projects', '!dist/projects/**'],
